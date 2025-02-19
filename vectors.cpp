@@ -33,9 +33,7 @@ bool isValid ( string number ) {
     }
     catch (const std::invalid_argument&) {
         return false;
-    }
-    
-    
+    }    
 }
 
 bool isValid ( int number ) {
@@ -48,7 +46,6 @@ int randomNumber (int a, int b) {
     std::random_device dev;
     std::mt19937 rng(dev());
     std::uniform_int_distribution<std::mt19937::result_type> num(a,b);
-
     return num(rng);
 }
 
@@ -86,14 +83,14 @@ int main() {
             case '1': {
                 stud.push_back(Student());
                 
-                bool examm = false;
+                //bool examm = false;
                 string exam_mark;
                 cout << "Enter name: ";
                 cin >> stud[counter].name; 
                 cout << "Enter surname: ";
                 cin >> stud[counter].surname;
 
-                while (examm == false) {
+                while (true) {
                     cout << "Enter exam mark (0-10): ";
                     cin >> exam_mark;
                     if (isValid(exam_mark)) {
@@ -191,7 +188,7 @@ int main() {
             }
             
             case '5':{
-                
+                cout <<endl<< "quitting... bye" << endl;
                 return 0;
             }
             
