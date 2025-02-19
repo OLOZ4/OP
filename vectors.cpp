@@ -1,14 +1,21 @@
 #include <algorithm>
-#include <cstdlib>
+//#include <cstdlib>
 #include <iomanip>
 #include  <iostream>
-#include  <climits>
+//#include  <climits>
 #include <random>
 #include  <string>
 #include  <fstream>
 #include <vector>
 
-using namespace std;
+//using namespace std;
+using std::cout;
+using std::cin;
+using std::endl;
+using std::setw;
+using std::string;
+using std::vector;
+using std::ifstream;
 
 struct Student {
     string name{};
