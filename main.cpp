@@ -6,7 +6,6 @@
 #include  <string>
 
 
-//using std::struct;
 using std::string;
 using std::cout;
 using std::cin;
@@ -45,7 +44,6 @@ bool isValid ( int number ) {
 
 int main() {
     Student stud[1000];
-    string names[2400];
     char choice;
     int counter = 0;
     
@@ -62,8 +60,7 @@ int main() {
                 cin >> stud[counter].name;
                 cout << "Enter surname: ";
                 cin >> stud[counter].surname;
-
-                while (examm == false) {
+                while (true) {
                     cout << "Enter exam mark (0-10): ";
                     cin >> exam_mark;
                     if (isValid(exam_mark)) {
