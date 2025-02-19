@@ -3,11 +3,16 @@
 #include <iomanip>
 #include  <iostream>
 #include  <climits>
-#include <random>
 #include  <string>
-#include  <fstream>
 
-using namespace std;
+
+//using std::struct;
+using std::string;
+using std::cout;
+using std::cin;
+using std::endl;
+using std::setw;
+
 
 struct Student {
     string name;
@@ -36,29 +41,7 @@ bool isValid ( int number ) {
     else return false;
 }
 
-int randomNumber (int a, int b) {
-    std::random_device dev;
-    std::mt19937 rng(dev());
-    std::uniform_int_distribution<std::mt19937::result_type> num(a,b); // distribution in range [1, 6]
 
-    return num(rng);
-}
-
-void readFile ( string names[]) {
-    ifstream in ("vardai.txt");
-    
-    for (int i = 0; i < 2400; i++)
-    {
-        in >> names[i];
-        //cout << names[i]<< endl;
-    }
-
-}
-
-string name(string names[]) {
-    
-    return names[randomNumber(1, 2400)];
-}
 
 int main() {
     Student stud[1000];
@@ -66,9 +49,7 @@ int main() {
     char choice;
     int counter = 0;
     
-    readFile(names);
 
-    //cout << name(names)<<endl;
 
     while (true) {
         cout << "\nSelect:\n1) to add a new student\n2) to process and print all students\n3) to quit\n--> ";
@@ -130,17 +111,6 @@ int main() {
             }
 
             case '2': {
-                /*for (int i = 0; i < counter; i++) {
-                    cout <<"Name: "<< stud[i].name << endl;
-                    cout <<"Surname: "<< stud[i].surname << endl;
-                    cout <<"Exam mark: "<< stud[i].exam << endl;
-                    for (int j = 0; j < stud[i].mark_count; j++) {
-                        cout << stud[i].mark[j] << " ";
-                    }
-                    cout << endl;
-                    
-                }
-                */
                 int g = 15;
                 cout << endl << setw(g) << "Vardas: "<< setw(g) << "Pavardė: "<< setw(g) << "Pažymys(vid.): "<< setw(g+5) << "Pažymys(med.): " << setw(g+5)<< endl;
                 cout<<"__________________________________________________________________________________"<<endl;
@@ -166,6 +136,7 @@ int main() {
                 break;
             }
             case '3':{
+                cout << endl <<"quitting"<<endl;
                 return 0;
             }       
             //break;
