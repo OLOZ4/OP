@@ -133,7 +133,7 @@ int main() {
                 break;
             }
             case '3':{
-                cout << endl <<"quitting"<<endl;
+                cout << endl <<"quitting, bye"<<endl;
                 return 0;
             }       
             //break;
