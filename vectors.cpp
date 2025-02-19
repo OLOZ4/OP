@@ -1,5 +1,6 @@
 #include <algorithm>
 //#include <cstdlib>
+#include <cstdio>
 #include <iomanip>
 #include  <iostream>
 //#include  <climits>
@@ -16,6 +17,7 @@ using std::setw;
 using std::string;
 using std::vector;
 using std::ifstream;
+using std::cerr;
 
 struct Student {
     string name{};
@@ -49,35 +51,43 @@ int randomNumber (int a, int b) {
     return num(rng);
 }
 
-void readFile ( string names[]) {
-    ifstream in ("vardai.txt");
-    
-    for (int i = 0; i < 2400; i++)
-    {
-        in >> names[i];
-       //cout << names[i]<< endl;
+void readFile(std::vector<std::string>& name) {
+    std::ifstream in("vardai.txt");
+    if (!in.is_open()) {
+        cerr << "Failed to open file." << std::endl;
+        return;
     }
 
+    while (!in.eof()) {
+        string line;
+        getline(in, line);
+        name.push_back(line);
+    }
 }
 
-string name(string names[]) {
-    
-    return names[randomNumber(1, 2400)];
+string get_name(vector<string> name) { 
+    return name[randomNumber(1, name.size())];
 }
 
 int main() {
     vector<Student> stud;
     //Student stud[1000];
-    string names[2400];
+    vector <string> name;
+    //string names[2400];
     char choice;
     int counter = 0;
     //string name, username {};
-    readFile(names);
+    readFile(name);
+    cout <<endl<< "name: "<<  get_name(name)<<endl;
+    //cout<< endl<<" size: "<<name.size();
+    for (const auto& name : name) {
+        //std::cout << name << std::endl;
+    }
 
     //cout << name(names)<<endl;
     
     while (true) {
-        cout << "\nSelect:\n1) to add a new student\n2) to add a new student (generated marks)\n3) to add a new student (generated marks and names)\n4) to process and print all students\n5) to quit\n--> ";
+        cout << "Select:\n1) to add a new student\n2) to add a new student (generated marks)\n3) to add a new student (generated marks and names)\n4) to process and print all students\n5) to quit\n--> ";
         cin >> choice;
         switch (choice) {
             case '1': {
@@ -148,50 +158,6 @@ int main() {
             break;
             }
             
-            case '4': {
-                
-                for (int i = 0; i < counter; i++) {
-                    cout <<"Name: "<< stud[i].name << endl;
-                    cout <<"Surname: "<< stud[i].surname << endl;
-                    cout <<"Exam mark: "<< stud[i].exam << endl;
-                    for (int j = 0; j < stud[i].mark_count; j++) {
-                        cout << stud[i].mark[j] << " ";
-                    }
-                    cout << endl;
-                    
-                }
-                
-
-                int g = 15;
-                cout << endl << setw(g) << "Vardas: "<< setw(g) << "Pavardė: "<< setw(g) << "Pažymys(vid.): "<< setw(g+5) << "Pažymys(med.): " << setw(g+5)<< endl;
-                cout<<"__________________________________________________________________________________"<<endl;
-                for (int i = 0; i < counter; i++) {
-                    cout << setw(g) << stud[i].name << setw(g) << stud[i].surname << setw(g);
-                    double sum = 0;
-                    for (int j = 0; j < stud[i].mark_count; j++) {
-                        sum += stud[i].mark[j];
-                    }
-
-                    double med{};
-                    std::sort(stud[i].mark.begin(), stud[i].mark.end());
-
-                    if (stud[i].mark_count % 2 != 0) {
-                        med = stud[i].mark[stud[i].mark_count/2];
-                    }
-                    else {
-                        med = (stud[i].mark[(stud[i].mark_count-1)/2] + stud[i].mark[stud[i].mark_count/2]) / 2.0;
-                    }
-                    cout << std::setprecision(3)<< (0.4*(sum/stud[i].mark_count)+0.6*stud[i].exam) << setw(g) << std::setprecision(3) << med << endl;
-
-                }
-                break;
-            }
-            
-            case '5':{
-                cout <<endl<< "quitting... bye" << endl;
-                return 0;
-            }
-            
             case '2': {
                 stud.push_back(Student());
                 bool examm = false;
@@ -252,8 +218,7 @@ int main() {
                 }
                 break;
             }
-            //break;
-            
+
             case '3': {
                 stud.push_back(Student());
                 bool examm = false;
@@ -263,7 +228,7 @@ int main() {
                     cout << "Press 'a' to generate a name: ";
                     cin >> in;
                     if (in == "a") {
-                        stud[counter].name = name(names);
+                        stud[counter].name = get_name(name);
                         cout << "Generated name is: "<< stud[counter].name<<endl;
                         break;
                     }
@@ -274,7 +239,7 @@ int main() {
                     cout << "Press 'a' to generate a surname: ";
                     cin >> in;
                     if (in == "a") {
-                        stud[counter].surname = name(names);
+                        stud[counter].surname = get_name(name);
                         cout << "Generated surame name is: "<< stud[counter].surname<<endl;
                         break;
                     }
@@ -340,6 +305,55 @@ int main() {
                 }
                 break;
             }
+
+            case '4': {
+                
+                for (int i = 0; i < counter; i++) {
+                    cout <<"Name: "<< stud[i].name << endl;
+                    cout <<"Surname: "<< stud[i].surname << endl;
+                    cout <<"Exam mark: "<< stud[i].exam << endl;
+                    for (int j = 0; j < stud[i].mark_count; j++) {
+                        cout << stud[i].mark[j] << " ";
+                    }
+                    cout << endl;
+                    
+                }
+                
+
+                int g = 15;
+                cout << endl << setw(g) << "Vardas: "<< setw(g) << "Pavardė: "<< setw(g) << "Pažymys(vid.): "<< setw(g+5) << "Pažymys(med.): " << setw(g+5)<< endl;
+                cout<<"__________________________________________________________________________________"<<endl;
+                for (int i = 0; i < counter; i++) {
+                    cout << setw(g) << stud[i].name << setw(g) << stud[i].surname << setw(g);
+                    double sum = 0;
+                    for (int j = 0; j < stud[i].mark_count; j++) {
+                        sum += stud[i].mark[j];
+                    }
+
+                    double med{};
+                    std::sort(stud[i].mark.begin(), stud[i].mark.end());
+
+                    if (stud[i].mark_count % 2 != 0) {
+                        med = stud[i].mark[stud[i].mark_count/2];
+                    }
+                    else {
+                        med = (stud[i].mark[(stud[i].mark_count-1)/2] + stud[i].mark[stud[i].mark_count/2]) / 2.0;
+                    }
+                    cout << std::setprecision(3)<< (0.4*(sum/stud[i].mark_count)+0.6*stud[i].exam) << setw(g) << std::setprecision(3) << med << endl;
+
+                }
+                break;
+            }
+            
+            case '5':{
+                cout <<endl<< "quitting... bye" << endl;
+                return 0;
+            }
+            
+
+            //break;
+            
+            
             
             //break;
             default:
