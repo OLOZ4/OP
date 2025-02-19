@@ -1,130 +1,178 @@
 #include <algorithm>
-#include <iostream>
+#include <cstdlib>
 #include <iomanip>
-#include <string>
+#include  <iostream>
+#include  <climits>
+#include <random>
+#include  <string>
+#include  <fstream>
 
-using std::cout;
-using std::cin;
-using std::endl;
-using std::setw;
-using std::string;
+using namespace std;
 
-struct mok{
-    string vard = "vardas";
-    string pavarde = "pavarde";
-    int* nd;
-    int egz = 10;
+struct Student {
+    string name;
+    string surname;
+    int exam;
+    int mark[1000];
+    int mark_count = 0;
 };
 
+bool isValid ( string number ) {
+    try {
+        int mark = stoi(number);
+        if (mark >= 0 && mark <= 10) return true;
+        else return false;
+    }
+    catch (const std::invalid_argument&) {
+        return false;
+    }
+    
+    
+}
+
+bool isValid ( int number ) {
+    int mark = number;
+    if (mark >= 0 && mark <= 10) return true;
+    else return false;
+}
+
+int randomNumber (int a, int b) {
+    std::random_device dev;
+    std::mt19937 rng(dev());
+    std::uniform_int_distribution<std::mt19937::result_type> num(a,b); // distribution in range [1, 6]
+
+    return num(rng);
+}
+
+void readFile ( string names[]) {
+    ifstream in ("vardai.txt");
+    
+    for (int i = 0; i < 2400; i++)
+    {
+        in >> names[i];
+        //cout << names[i]<< endl;
+    }
+
+}
+
+string name(string names[]) {
+    
+    return names[randomNumber(1, 2400)];
+}
+
 int main() {
-    int a, b, c, d;
-
-    cout << "Kiek bus studentų?: ";
-    cin >> a;
-
-    while (a < 0) 
-    {
-        cout << "Tai turi buti teigiamas skaičius!"<<endl;
-        cout << "Kiek bus studentų?: ";
-        cin >> a;
-    }
-
-    cout << "Kiek studentai tures namų darbų: ";
-    cin >> b;
-
-    while (b < 0) 
-    {
-        cout << "Tai turi buti teigiamas skaičius!"<<endl;
-        cout << "Kiek studentai turės namu darbų: ";
-        cin >> b;
-    }
-
-    mok students[a];
+    Student stud[1000];
+    string names[2400];
+    char choice;
+    int counter = 0;
     
+    readFile(names);
 
-    for (int i = 0; i < a; ++i) 
-    {
-        students[i].nd = new int [b];
+    //cout << name(names)<<endl;
 
-        cout << endl << "Studento " << (i + 1) << " vardas: ";
-        cin >> students[i].vard;
+    while (true) {
+        cout << "\nSelect:\n1) to add a new student\n2) to process and print all students\n3) to quit\n--> ";
+        cin >> choice;
+        switch (choice) {
+            case '1': {
+                bool examm = false;
+                string exam_mark;
+                cout << "Enter name: ";
+                cin >> stud[counter].name;
+                cout << "Enter surname: ";
+                cin >> stud[counter].surname;
 
-        while (students[i].vard == "")
-        {
-            cout << endl << "Studento " << (i + 1) << " vardas: ";
-            cin >> students[i].vard;
-        }
+                while (examm == false) {
+                    cout << "Enter exam mark (0-10): ";
+                    cin >> exam_mark;
+                    if (isValid(exam_mark)) {
+                        stud[counter].exam = stoi(exam_mark);
+                        break;
+                    }
+                    else {
+                        cout << "Invalid input. Please enter a valid mark." << endl;
+                        continue;   
+                    }
+                }
+                while (true) {
+                    int mark;
+                    string input;
+                    cout << "Enter a mark (or 'q' to quit): ";
+                    cin >> input;
 
-        cout << endl << "Studento " << (i + 1) << " pavardė: ";
-        cin >> students[i].pavarde;
+                    if (input == "q") {
+                        counter++;
+                        cout << counter << endl;
+                        break;
 
-        while (students[i].pavarde == "") 
-        {
-            cout << endl << "Studento " << (i + 1) << " pavardė: ";
-            cin >> students[i].pavarde;
-        }
-
-        cout << endl << "Studento " << (i + 1) << " egzamino pažymys: ";
-        cin >> c;
-        while (c < 0 || c > 10)
-        {
-            cout << "Tai turi buti skaičius tarp 0 ir 10";
-            cout << endl << "Studento " << (i + 1) << " egzamino pažymys: ";
-            cin >> c;
-        }
-         
-        c = students[i].egz;
-
-
-        for (int j = 0; j < b; ++j) 
-        {
-            cout << endl << "Studento " << (i + 1) << " " << (j + 1) << " pažymys už namų darbus: ";
-            cin >> d;
-            while (d < 0 || d > 10)
-            {
-                cout << "Tai turi buti skaičius tarp 0 ir 10"<< endl;
-                cout << endl << "Studento " << (i + 1) << " " << (j + 1) << " pažymys už namų darbus: ";
-                cin >> d;
-            }
-            students[i].nd[j] = d;
-        }
-
-    }
-int g = 15;
-
-    cout << endl << setw(g) << "Vardas: "<< setw(g) << "Pavardė: "<< setw(g) << "Pažymys(vid.): "<< setw(g+5) << "Pažymys(med.): " << setw(g+5)<< endl;
-    cout<<"__________________________________________________________________________________"<<endl;
-    for (int i = 0; i < a; i++)
-    {
-        cout << setw(g) << students[i].vard << setw(g) << students[i].pavarde << setw(g);
-        double sum = 0;
-        for (int j = 0; j < b; j++)
-        {
-            sum = sum + students[i].nd[j]; 
-        }
-
-        double med{};
-        std::sort(students[i].nd,students[i].nd + b);
-        //cout << endl;
-        //for (int g = 0; g < b; g++)
-          //  {
-            //    cout <<students[i].nd[g]<<endl;
-           // }
-
-        if (b % 2 != 0)
-        {
-            med = students[i].nd[b/2];
-            //cout <<endl << "b nelyginis: "<<b/2<< endl;
+                    }
+                    try {
+                        if (isValid(input)) {
+                            
+                            stud[counter].mark[stud[counter].mark_count] = stoi(input);
+                            stud[counter].mark_count ++;
+                        }
+                        else {
+                            cout << "Invalid input. Please enter a valid mark." << endl;
+                            continue;
+                        }
+                    } 
+                    
+                    catch (const std::invalid_argument&) {
+                        cout << "Invalid input. Please enter a valid mark." << endl;
+                        continue;    
+                    }
+                    
+                }
             
-        }
-        else 
-        {
-            med = (students[i].nd[(b-1)/2] + students[i].nd[b/2]) / 2.0;
-            //cout << "b lyginis"<<endl;        
-        }
-    
-        cout << std::setprecision(3)<< (0.4*(sum/b)+0.6*students[i].egz) << setw(g) << std::setprecision(3) << med << endl;
 
+            break;
+            }
+
+            case '2': {
+                /*for (int i = 0; i < counter; i++) {
+                    cout <<"Name: "<< stud[i].name << endl;
+                    cout <<"Surname: "<< stud[i].surname << endl;
+                    cout <<"Exam mark: "<< stud[i].exam << endl;
+                    for (int j = 0; j < stud[i].mark_count; j++) {
+                        cout << stud[i].mark[j] << " ";
+                    }
+                    cout << endl;
+                    
+                }
+                */
+                int g = 15;
+                cout << endl << setw(g) << "Vardas: "<< setw(g) << "Pavardė: "<< setw(g) << "Pažymys(vid.): "<< setw(g+5) << "Pažymys(med.): " << setw(g+5)<< endl;
+                cout<<"__________________________________________________________________________________"<<endl;
+                for (int i = 0; i < counter; i++) {
+                    cout << setw(g) << stud[i].name << setw(g) << stud[i].surname << setw(g);
+                    double sum = 0;
+                    for (int j = 0; j < stud[i].mark_count; j++) {
+                        sum += stud[i].mark[j];
+                    }
+
+                    double med{};
+                    std::sort(stud[i].mark,stud[i].mark + stud[i].mark_count);
+
+                    if (stud[i].mark_count % 2 != 0) {
+                        med = stud[i].mark[stud[i].mark_count/2];
+                    }
+                    else {
+                        med = (stud[i].mark[(stud[i].mark_count)-1/2] + stud[i].mark[stud[i].mark_count/2]) / 2.0;
+                    }
+                    cout << std::setprecision(3)<< (0.4*(sum/stud[i].mark_count)+0.6*stud[i].exam) << setw(g) << std::setprecision(3) << med << endl;
+
+                }
+                break;
+            }
+            case '3':{
+                return 0;
+            }       
+            //break;
+            default:
+                cout << "\n\nInvalid choice. Please try again.\n";
+        }
     }
+
     return 0;
 }
