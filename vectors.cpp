@@ -20,7 +20,7 @@ using std::ifstream;
 using std::cerr;
 
 struct Student {
-    string name{};
+    string name;
     string surname{};
     int exam{};
     vector<int> mark;
@@ -60,7 +60,7 @@ void readFile(vector<string>& name) {
 
     while (!in.eof()) {
         string line;
-        getline(in, line);
+        in >> line;
         name.push_back(line);
     }
 }
@@ -78,7 +78,7 @@ int main() {
     int counter = 0;
     //string name, username {};
     readFile(name);
-    cout <<endl<< "name: "<<  get_name(name)<<endl;
+    //cout <<endl<< "name: "<<  get_name(name)<<endl;
     //cout<< endl<<" size: "<<name.size();
     for (const auto& name : name) {
         //std::cout << name << std::endl;
@@ -286,7 +286,7 @@ int main() {
             }
 
             case '4': {
-                
+                /*
                 for (int i = 0; i < counter; i++) {
                     cout <<"Name: "<< stud[i].name << endl;
                     cout <<"Surname: "<< stud[i].surname << endl;
@@ -297,13 +297,13 @@ int main() {
                     cout << endl;
                     
                 }
-                
+                */
 
                 int g = 15;
                 cout << endl << "Vardas: "<< setw(g) << "Pavardė: "<< setw(g) << "Pažymys(vid.): "<< setw(g+5) << "Pažymys(med.): "<< endl;
                 cout<<"__________________________________________________________________________________"<<endl;
                 for (int i = 0; i < counter; i++) {
-                    cout << stud[i].name << setw(g)<< stud[i].surname << "       "; 
+                    cout << stud[i].name << setw(g)<< stud[i].surname; 
                     double sum = 0;
                     for (int j = 0; j < stud[i].mark_count; j++) {
                         sum += stud[i].mark[j];
@@ -312,14 +312,15 @@ int main() {
                     double med{};
                     std::sort(stud[i].mark.begin(), stud[i].mark.end());
 
-                    if (stud[i].mark_count % 2 != 0) {
+                    if ((stud[i].mark.size()) % 2 != 0) {
                         med = stud[i].mark[stud[i].mark_count/2];
                     }
                     else {
                         med = (stud[i].mark[(stud[i].mark_count-1)/2] + stud[i].mark[stud[i].mark_count/2]) / 2.0;
                     }
                     cout << setw(g) <<std::setprecision(3)<< (0.4*(sum/stud[i].mark_count)+0.6*stud[i].exam) << setw(g) << std::setprecision(3) << med << endl;
-                }             
+                }
+                cout<<endl;             
                 break;
             }
             
