@@ -51,7 +51,7 @@ int randomNumber (int a, int b) {
     return num(rng);
 }
 
-void readFile(std::vector<std::string>& name) {
+void readFile(vector<string>& name) {
     std::ifstream in("vardai.txt");
     if (!in.is_open()) {
         cerr << "Failed to open file." << std::endl;
@@ -246,34 +246,11 @@ int main() {
                     else continue;
                 }
                 while (true) {
-                    stud[counter].mark.push_back(0);
                     cout << "Press 'a' to generate exam mark: ";
                     cin >> exam_mark;
                     if (exam_mark == "a") {
-
-                        //int* newArr = new int[stud[counter].mark_count + 1];
-                        //if (stud[counter].mark != NULL) {
-                            //for (int i = 0; i < stud[counter].mark_count; i++) {
-                                //newArr[i] = stud[counter].mark[i];
-                                //}
-                        //}
-
-                        //delete stud[counter].mark;
-                        //stud[counter].mark = newArr;    
-                
-                        stud[counter].mark_count ++;
-
-                        //stud[counter].mark[stud[counter].mark_count-1] = randomNumber(0, 10);
-                        
-                        stud[counter].mark[stud[counter].mark_count] = randomNumber(0, 10);
-                        cout << "Generated mark was: "<< stud[counter].mark[stud[counter].mark_count]<<endl;
-
-
-
-
-
-                        //stud[counter].exam = randomNumber(0, 10);
-                        //cout << "Generated exam mark was: "<< stud[counter].exam<<endl;
+                        stud[counter].exam = randomNumber(0, 10);
+                        cout << "Generated exam mark was: "<< stud[counter].exam<<endl;
                         break;
                     }
                     else {
@@ -286,10 +263,12 @@ int main() {
                     string input;
                     cout << "Pres 'a' to generate a mark or 'q' to quit: ";
                     cin >> input;
+                    stud[counter].mark.push_back(0);
+
 
                     if (input == "q") {
                         counter++;
-                        cout << counter << endl;
+                        //cout << counter << endl;
                         break;
 
                     }
@@ -321,10 +300,10 @@ int main() {
                 
 
                 int g = 15;
-                cout << endl << setw(g) << "Vardas: "<< setw(g) << "Pavardė: "<< setw(g) << "Pažymys(vid.): "<< setw(g+5) << "Pažymys(med.): " << setw(g+5)<< endl;
+                cout << endl << "Vardas: "<< setw(g) << "Pavardė: "<< setw(g) << "Pažymys(vid.): "<< setw(g+5) << "Pažymys(med.): "<< endl;
                 cout<<"__________________________________________________________________________________"<<endl;
                 for (int i = 0; i < counter; i++) {
-                    cout << setw(g) << stud[i].name << setw(g) << stud[i].surname << setw(g);
+                    cout << stud[i].name << setw(g)<< stud[i].surname << "       "; 
                     double sum = 0;
                     for (int j = 0; j < stud[i].mark_count; j++) {
                         sum += stud[i].mark[j];
@@ -339,9 +318,8 @@ int main() {
                     else {
                         med = (stud[i].mark[(stud[i].mark_count-1)/2] + stud[i].mark[stud[i].mark_count/2]) / 2.0;
                     }
-                    cout << std::setprecision(3)<< (0.4*(sum/stud[i].mark_count)+0.6*stud[i].exam) << setw(g) << std::setprecision(3) << med << endl;
-
-                }
+                    cout << setw(g) <<std::setprecision(3)<< (0.4*(sum/stud[i].mark_count)+0.6*stud[i].exam) << setw(g) << std::setprecision(3) << med << endl;
+                }             
                 break;
             }
             
