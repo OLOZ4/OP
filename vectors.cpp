@@ -303,10 +303,10 @@ int main() {
                 */
 
                 int g = 15;
-                cout << endl << "Vardas: "<< setw(g) << "Pavardė: "<< setw(g) << "Pažymys(vid.): "<< setw(g+5) << "Pažymys(med.): "<< endl;
+                cout << endl << setw(g) << left<< "Vardas: "<< setw(g) << left<< "Pavardė: "<< setw(g) << left<< "Pažymys(vid.): "<< setw(g) << left<< "Pažymys(med.): "<< endl;
                 cout<<"__________________________________________________________________________________"<<endl;
                 for (int i = 0; i < counter; i++) {
-                    cout << stud[i].name << setw(g)<< stud[i].surname; 
+                    cout <<setw(g)<< left<< stud[i].name << setw(g)<< left<< stud[i].surname; 
                     double sum = 0;
                     for (int j = 0; j < stud[i].mark_count; j++) {
                         sum += stud[i].mark[j];
@@ -321,7 +321,7 @@ int main() {
                     else {
                         med = (stud[i].mark[(stud[i].mark_count-1)/2.0] + stud[i].mark[stud[i].mark_count/2.0]) / 2.0;
                     }
-                    cout << setw(g) <<left<<std::setprecision(3)<< (0.4*(sum/stud[i].mark_count)+0.6*stud[i].exam) << setw(g) << std::setprecision(3) <<  (0.4*med+0.6*stud[i].exam) << endl; // kur mediana vietoj vidurkio imti mediana
+                    cout << setw(g) <<left<<std::setprecision(3)<< (0.4*(sum/stud[i].mark_count)+0.6*stud[i].exam) << setw(g)<< left << std::setprecision(3) <<  (0.4*med+0.6*stud[i].exam) << endl; // kur mediana vietoj vidurkio imti mediana
                 }
                 cout<<endl;             
                 break;
