@@ -90,7 +90,14 @@ int main() {
     
     while (true) {
         //system("dir ");
-        cout << "Select:\n1) to add a new student\n2) to add a new student (generated marks)\n3) to add a new student (generated marks and names)\n4) to process and print all students\n5) to quit\n--> ";
+        cout << R"(Select:
+1) to add a new student
+2) to add a new student (generated marks)
+3) to add a new student (generated marks and names)
+4) to read from file
+5) to process and print all students
+6) to quit
+--> )";
         cin >> choice;
         switch (choice) {
             case '1': {
@@ -313,8 +320,11 @@ int main() {
                 */
                 break;
             }
-
             case '4': {
+                cout<< "reading from file"<<endl;
+                break;
+            }
+            case '5': {
                 /*
                 for (int i = 0; i < counter; i++) {
                     cout <<"Name: "<< stud[i].name << endl;
@@ -353,7 +363,7 @@ int main() {
                 break;
             }
             
-            case '5':{
+            case '6':{
                 cout <<endl<< "quitting... bye" << endl;
                 return 0;
             }
