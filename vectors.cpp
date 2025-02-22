@@ -71,6 +71,21 @@ string get_name(vector<string> name) {
     return name[randomNumber(1, name.size())];
 }
 
+int returnNumberOfHomework (string filename) {
+    string s;
+    int count = 0;
+    ifstream in (filename);
+    while (true) {
+        in >> s;
+        if (s == "Egz.") {
+        count = count -2;
+        return count;
+        break;
+        }
+        count++;
+   }
+}
+
 int main() {
     vector<Student> stud;
     //Student stud[1000];
@@ -322,6 +337,12 @@ int main() {
             }
             case '4': {
                 cout<< "reading from file"<<endl;
+                
+                cout<< "nmuber of homework: "<<returnNumberOfHomework("kursiokai.txt")<<endl;
+                cout<< "nmuber of homework: "<<returnNumberOfHomework("studentai10000.txt")<<endl;
+                cout<< "nmuber of homework: "<<returnNumberOfHomework("studentai100000.txt")<<endl;
+                cout<< "nmuber of homework: "<<returnNumberOfHomework("studentai1000000.txt")<<endl;
+                cout<<endl;
                 break;
             }
             case '5': {
