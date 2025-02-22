@@ -1,6 +1,7 @@
 #include <algorithm>
 //#include <cstdlib>
 #include <cstdio>
+#include <cstdlib>
 #include <iomanip>
 #include  <iostream>
 //#include  <climits>
@@ -18,6 +19,7 @@ using std::string;
 using std::vector;
 using std::ifstream;
 using std::cerr;
+using std::left;
 
 struct Student {
     string name;
@@ -80,13 +82,14 @@ int main() {
     readFile(name);
     //cout <<endl<< "name: "<<  get_name(name)<<endl;
     //cout<< endl<<" size: "<<name.size();
-    for (const auto& name : name) {
+    //for (const auto& name : name) {
         //std::cout << name << std::endl;
-    }
+    //}
 
     //cout << name(names)<<endl;
     
     while (true) {
+        system("dir ");
         cout << "Select:\n1) to add a new student\n2) to add a new student (generated marks)\n3) to add a new student (generated marks and names)\n4) to process and print all students\n5) to quit\n--> ";
         cin >> choice;
         switch (choice) {
@@ -311,14 +314,14 @@ int main() {
 
                     double med{};
                     std::sort(stud[i].mark.begin(), stud[i].mark.end());
-
-                    if ((stud[i].mark.size()) % 2 != 0) {
-                        med = stud[i].mark[stud[i].mark_count/2];
+                    //cout <<endl<<"Student mark size: "<<stud[i].mark.size()<<endl;
+                    if ((stud[i].mark.size()-1) % 2 != 0) {
+                        med = stud[i].mark[stud[i].mark_count/2.0];
                     }
                     else {
-                        med = (stud[i].mark[(stud[i].mark_count-1)/2] + stud[i].mark[stud[i].mark_count/2]) / 2.0;
+                        med = (stud[i].mark[(stud[i].mark_count-1)/2.0] + stud[i].mark[stud[i].mark_count/2.0]) / 2.0;
                     }
-                    cout << setw(g) <<std::setprecision(3)<< (0.4*(sum/stud[i].mark_count)+0.6*stud[i].exam) << setw(g) << std::setprecision(3) << med << endl;
+                    cout << setw(g) <<left<<std::setprecision(3)<< (0.4*(sum/stud[i].mark_count)+0.6*stud[i].exam) << setw(g) << std::setprecision(3) <<  (0.4*med+0.6*stud[i].exam) << endl; // kur mediana vietoj vidurkio imti mediana
                 }
                 cout<<endl;             
                 break;
