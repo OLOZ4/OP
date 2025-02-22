@@ -169,7 +169,17 @@ int main() {
                 cin >> stud[counter].name;
                 cout << "Enter surname: ";
                 cin >> stud[counter].surname;
-
+                stud[counter].exam = randomNumber(0, 10);
+                cout << "Generated exam mark was: "<< stud[counter].exam<<endl;
+                stud[counter].mark.push_back(0);
+                for (int i = 0; i < randomNumber(3, 10); i++) {
+                    stud[counter].mark[stud[counter].mark_count] = randomNumber(0, 10);
+                    cout << "Generated mark was: "<< stud[counter].mark[stud[counter].mark_count]<<endl;
+                    stud[counter].mark_count ++;
+                }
+                cout<<endl;
+                counter++;
+                /*
                 while (true) {
                     cout << "Press 'a' to generate exam mark: ";
                     cin >> exam_mark;
@@ -219,6 +229,7 @@ int main() {
                         continue;
                     }   
                 }
+                */
                 break;
             }
 
@@ -238,6 +249,7 @@ int main() {
                     cout << "Generated mark was: "<< stud[counter].mark[stud[counter].mark_count]<<endl;
                     stud[counter].mark_count ++;
                 }
+                cout<<endl;
                 counter++;
                 /*
                 while (true) {
