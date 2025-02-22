@@ -89,7 +89,7 @@ int main() {
     //cout << name(names)<<endl;
     
     while (true) {
-        system("dir ");
+        //system("dir ");
         cout << "Select:\n1) to add a new student\n2) to add a new student (generated marks)\n3) to add a new student (generated marks and names)\n4) to process and print all students\n5) to quit\n--> ";
         cin >> choice;
         switch (choice) {
@@ -224,9 +224,22 @@ int main() {
 
             case '3': {
                 stud.push_back(Student());
-                bool examm = false;
                 string exam_mark;
                 string in;
+                stud[counter].name = get_name(name);
+                cout << "Generated name is: "<< stud[counter].name<<endl;
+                stud[counter].surname = get_name(name);
+                cout << "Generated surame name is: "<< stud[counter].surname<<endl;
+                stud[counter].exam = randomNumber(0, 10);
+                cout << "Generated exam mark was: "<< stud[counter].exam<<endl;
+                stud[counter].mark.push_back(0);
+                for (int i = 0; i < randomNumber(3, 10); i++) {
+                    stud[counter].mark[stud[counter].mark_count] = randomNumber(0, 10);
+                    cout << "Generated mark was: "<< stud[counter].mark[stud[counter].mark_count]<<endl;
+                    stud[counter].mark_count ++;
+                }
+                counter++;
+                /*
                 while (true) {
                     cout << "Press 'a' to generate a name: ";
                     cin >> in;
@@ -285,6 +298,7 @@ int main() {
                         continue;
                     }   
                 }
+                */
                 break;
             }
 
