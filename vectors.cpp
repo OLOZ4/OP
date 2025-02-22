@@ -6,6 +6,7 @@
 #include  <iostream>
 //#include  <climits>
 #include <random>
+#include <sstream>
 #include  <string>
 #include  <fstream>
 #include <vector>
@@ -78,7 +79,8 @@ int returnNumberOfHomework (string filename) {
     while (true) {
         in >> s;
         if (s == "Egz.") {
-        count = count -2;
+        count = count - 2;
+        in.close();
         return count;
         break;
         }
@@ -104,7 +106,6 @@ int main() {
     //cout << name(names)<<endl;
     
     while (true) {
-        //system("dir ");
         cout << R"(Select:
 1) to add a new student
 2) to add a new student (generated marks)
@@ -336,17 +337,77 @@ int main() {
                 break;
             }
             case '4': {
-                cout<< "reading from file"<<endl;
+                stud.reserve(1000000);
+                string temp;
+                try {
+                system("clear");
+                string filename;
+                cout<<"Available files:"<<endl;
+                system("dir *.txt");
+                cout<<endl <<"Enter file name:"<<endl;
+                cout <<"--> ";
+                cin >> filename;
+                ifstream in (filename);
+                int homework_count = returnNumberOfHomework(filename);
+                getline(in, temp);
+                                    
+                string word;
+
+                while (getline(in, temp)) {  
+                    
+                    std::istringstream stream (temp);
+                    while (stream) {
+                        //stream >> word;
+                        //cout << word<< endl;
+                        //---------------------------
+                        stud.push_back(Student());
+                        
+                        stream >> stud[counter].name >> stud[counter].surname;
+                        stud[counter].mark.push_back(0);
+                        for (int i = 0; i < homework_count; i++) {
+                            stream >> stud[counter].mark[stud[counter].mark_count];
+                            stud[counter].mark_count ++;
+                        }
+                        stream >> stud[counter].exam;
+                        counter ++;
+            
+                    }
+                    
+                    
+                    /*
+                    
+                    */
+                    cout <<"----------------------------------"<<endl;
+                    /*
+                    
+                    //cout << temp << endl;
+                    */
+                    }
+                                    in.close();
+
+                //string buffer;
+
+                // Read from the file into the string
+                //in.seekg(0, std::ios::beg);
+                //buffer.assign((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
+
+                //cout << buffer << endl;
+                } 
+                catch (...) {
+                    cout<<"Unable to open specified file!";
+                }
                 
-                cout<< "nmuber of homework: "<<returnNumberOfHomework("kursiokai.txt")<<endl;
-                cout<< "nmuber of homework: "<<returnNumberOfHomework("studentai10000.txt")<<endl;
-                cout<< "nmuber of homework: "<<returnNumberOfHomework("studentai100000.txt")<<endl;
-                cout<< "nmuber of homework: "<<returnNumberOfHomework("studentai1000000.txt")<<endl;
-                cout<<endl;
+
+                
+                //cout<< "nmuber of homework: "<<returnNumberOfHomework("kursiokai.txt")<<endl;
+                //cout<< "nmuber of homework: "<<returnNumberOfHomework("studentai10000.txt")<<endl;
+                //cout<< "nmuber of homework: "<<returnNumberOfHomework("studentai100000.txt")<<endl;
+                //cout<< "nmuber of homework: "<<returnNumberOfHomework("studentai1000000.txt")<<endl;
+                //cout<<endl;
                 break;
             }
             case '5': {
-                /*
+                
                 for (int i = 0; i < counter; i++) {
                     cout <<"Name: "<< stud[i].name << endl;
                     cout <<"Surname: "<< stud[i].surname << endl;
@@ -357,7 +418,7 @@ int main() {
                     cout << endl;
                     
                 }
-                */
+                
 
                 int g = 15;
                 cout << endl << setw(g) << left<< "Vardas: "<< setw(g) << left<< "Pavardė: "<< setw(g) << left<< "Pažymys(vid.): "<< setw(g) << left<< "Pažymys(med.): "<< endl;
