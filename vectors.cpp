@@ -88,6 +88,17 @@ int returnNumberOfHomework (string filename) {
    }
 }
 
+int lineCount (string filename) {
+    ifstream in (filename);
+    string temp;
+    int count = 0;
+    while (getline(in, temp)) {
+        count++;
+    }
+    return count;
+
+}
+
 int main() {
     vector<Student> stud;
     //Student stud[1000];
@@ -350,6 +361,7 @@ int main() {
                 cin >> filename;
                 ifstream in (filename);
                 int homework_count = returnNumberOfHomework(filename);
+                int lineNum = lineCount(filename);
                 getline(in, temp);
                                     
                 string word;
@@ -357,33 +369,34 @@ int main() {
                 while (getline(in, temp)) {   
                     std::istringstream stream (temp);
                     while (stream) {
+                        stud.reserve(lineNum);
                         stud.push_back(Student());
                         int temp1;
                         string temp2;     
-                        cout << "Name: ";
+                        //cout << "Name: ";
                         stream >> word;
                         stud[counter].name = word;
-                        cout << word<<" " <<  endl;
-                        cout << "Surname: ";
+                        //cout << word<<" " <<  endl;
+                        //cout << "Surname: ";
                         stream >> word;
                         stud[counter].surname = word;
-                        cout << word<< endl;
+                        //cout << word<< endl;
                         for (int i = 0; i < homework_count; i++) {
-                            cout << "Mark " << i<< ": ";
+                            //cout << "Mark " << i<< ": ";
                             stream >> word;
                             temp1 = std::stoi(word);
-                            cout << temp1<< endl;
+                            //cout << temp1<< endl;
                             stud[counter].mark.push_back(temp1);
                             stud[counter].mark_count++;
 
                         }
                         
-                        cout << "Exam: ";
+                        //cout << "Exam: ";
                         stream >> word;
                         temp1 = stoi(word);
                         stud[counter].exam = temp1;
-                        cout << word<< endl;
-                        cout << "---------------------------"<<endl;
+                        //cout << word<< endl;
+                        //cout << "---------------------------"<<endl;
                         stream >> word;
                         counter ++;
                         
@@ -437,7 +450,7 @@ int main() {
                 break;
             }
             case '5': {
-                
+                /*
                 for (int i = 0; i < counter; i++) {
                     cout <<"Name: "<< stud[i].name << endl;
                     cout <<"Surname: "<< stud[i].surname << endl;
@@ -448,7 +461,7 @@ int main() {
                     cout << endl;
                     
                 }
-                
+                */
 
                 int g = 15;
                 cout << endl << setw(g) << left<< "Vardas: "<< setw(g) << left<< "Pavardė: "<< setw(g) << left<< "Pažymys(vid.): "<< setw(g) << left<< "Pažymys(med.): "<< endl;
