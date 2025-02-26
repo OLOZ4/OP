@@ -23,10 +23,10 @@ using std::cerr;
 using std::left;
 
 struct Student {
-    string name;
+    string name{};
     string surname{};
     int exam{};
-    vector<int> mark;
+    vector<int> mark{};
     int mark_count = 0;
 };
 
@@ -337,9 +337,10 @@ int main() {
                 break;
             }
             case '4': {
-                stud.reserve(1000000);
+                //stud.reserve(1000000);
+                
                 string temp;
-                try {
+                
                 system("clear");
                 string filename;
                 cout<<"Available files:"<<endl;
@@ -353,23 +354,55 @@ int main() {
                                     
                 string word;
 
-                while (getline(in, temp)) {  
-                    
+                while (getline(in, temp)) {   
                     std::istringstream stream (temp);
                     while (stream) {
-                        //stream >> word;
-                        //cout << word<< endl;
-                        //---------------------------
+                        stud.push_back(Student());
+                        int temp1;
+                        string temp2;     
+                        cout << "Name: ";
+                        stream >> word;
+                        stud[counter].name = word;
+                        cout << word<<" " <<  endl;
+                        cout << "Surname: ";
+                        stream >> word;
+                        stud[counter].surname = word;
+                        cout << word<< endl;
+                        for (int i = 0; i < homework_count; i++) {
+                            cout << "Mark " << i<< ": ";
+                            stream >> word;
+                            temp1 = std::stoi(word);
+                            cout << temp1<< endl;
+                            stud[counter].mark.push_back(temp1);
+                            stud[counter].mark_count++;
+
+                        }
+                        
+                        cout << "Exam: ";
+                        stream >> word;
+                        temp1 = stoi(word);
+                        stud[counter].exam = temp1;
+                        cout << word<< endl;
+                        cout << "---------------------------"<<endl;
+                        stream >> word;
+                        counter ++;
+                        
+                        /*
                         stud.push_back(Student());
                         
                         stream >> stud[counter].name >> stud[counter].surname;
                         stud[counter].mark.push_back(0);
                         for (int i = 0; i < homework_count; i++) {
-                            stream >> stud[counter].mark[stud[counter].mark_count];
+                            stream >> temp2;
+                            temp1 = std::stoi(temp2);
+                            stud[counter].mark[stud[counter].mark_count] = temp1;
                             stud[counter].mark_count ++;
                         }
                         stream >> stud[counter].exam;
                         counter ++;
+                        stream >> word;
+                        */
+                        
             
                     }
                     
@@ -377,13 +410,13 @@ int main() {
                     /*
                     
                     */
-                    cout <<"----------------------------------"<<endl;
+                    //cout <<"----------------------------------"<<endl;
                     /*
                     
                     //cout << temp << endl;
                     */
                     }
-                                    in.close();
+                    in.close();
 
                 //string buffer;
 
@@ -392,10 +425,7 @@ int main() {
                 //buffer.assign((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
 
                 //cout << buffer << endl;
-                } 
-                catch (...) {
-                    cout<<"Unable to open specified file!";
-                }
+                
                 
 
                 
