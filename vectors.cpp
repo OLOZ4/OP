@@ -10,6 +10,7 @@
 #include  <string>
 #include  <fstream>
 #include <vector>
+#include <chrono>
 
 //using namespace std;
 using std::cout;
@@ -28,6 +29,8 @@ struct Student {
     int exam{};
     vector<int> mark{};
     int mark_count = 0;
+    double result;
+    double median;
 };
 
 bool isValid ( string number ) {
@@ -97,6 +100,38 @@ int lineCount (string filename) {
     }
     return count;
 
+}
+
+void count_marks (vector<Student>& stud, int counter) {
+    for (int i = 0; i < counter; i++) {
+        double sum = 0;
+        for (int j = 0; j < stud[i].mark_count; j++) {
+        sum += stud[i].mark[j];
+        }
+        double med{};
+        std::sort(stud[i].mark.begin(), stud[i].mark.end());
+        //cout <<endl<<"Student mark size: "<<stud[i].mark.size()<<endl;
+        if ((stud[i].mark.size()-1) % 2 != 0) {
+            med = stud[i].mark[stud[i].mark_count/2.0];
+        }
+        else {
+        med = (stud[i].mark[(stud[i].mark_count-1)/2.0] + stud[i].mark[stud[i].mark_count/2.0]) / 2.0;
+        }
+        stud[i].median = 0.4*med+0.6*stud[i].exam;
+        stud[i].result = 0.4*(sum/stud[i].mark_count)+0.6*stud[i].exam;
+    }
+}
+
+void print_marks (vector<Student> stud, int counter) {
+    //count_marks(stud, counter);
+    int g = 15;
+    cout << endl << setw(g) << left<< "Vardas: "<< setw(g) << left<< "Pavardė: "<< setw(g) << left<< "Pažymys(vid.): "<< setw(g) << left<< "Pažymys(med.): "<< endl;
+     cout<<"__________________________________________________________________________________"<<endl;
+    for (int i = 0; i < counter; i++) {
+        cout <<setw(g)<< left<< stud[i].name << setw(g)<< left<< stud[i].surname; 
+        cout << setw(g) <<left<<std::setprecision(3)<< stud[i].result << setw(g)<< left << std::setprecision(3) <<  stud[i].median << endl; // kur mediana vietoj vidurkio imti mediana
+    }
+    cout<<endl; 
 }
 
 int main() {
@@ -360,6 +395,7 @@ int main() {
                 cout <<"--> ";
                 cin >> filename;
                 ifstream in (filename);
+                auto start = std::chrono::high_resolution_clock::now(); // Paleisti
                 int homework_count = returnNumberOfHomework(filename);
                 int lineNum = lineCount(filename);
                 getline(in, temp);
@@ -419,6 +455,7 @@ int main() {
             
                     }
                     
+
                     
                     /*
                     
@@ -429,6 +466,9 @@ int main() {
                     //cout << temp << endl;
                     */
                     }
+                    auto end = std::chrono::high_resolution_clock::now(); // Stabdyti
+                    std::chrono::duration<double> diff = end-start;
+                    cout << "Reading successful. Took: "<< diff.count() << " s\n"<<endl;
                     in.close();
 
                 //string buffer;
@@ -462,31 +502,50 @@ int main() {
                     
                 }
                 */
-
-                int g = 15;
-                cout << endl << setw(g) << left<< "Vardas: "<< setw(g) << left<< "Pavardė: "<< setw(g) << left<< "Pažymys(vid.): "<< setw(g) << left<< "Pažymys(med.): "<< endl;
-                cout<<"__________________________________________________________________________________"<<endl;
-                for (int i = 0; i < counter; i++) {
-                    cout <<setw(g)<< left<< stud[i].name << setw(g)<< left<< stud[i].surname; 
-                    double sum = 0;
-                    for (int j = 0; j < stud[i].mark_count; j++) {
-                        sum += stud[i].mark[j];
+                count_marks(stud, counter);
+                 cout << R"(Sort by:
+1) student name
+2) student surname
+3) student mark (average)
+4) student mark (median)
+--> )";
+                char choice1;
+                cin >> choice1;
+                switch (choice1) {
+                    case '1': {
+                        std::sort(stud.begin(), stud.end(), [](const Student& a, const Student& b) {
+                        return a.name < b.name;
+                        });
+                        print_marks(stud, counter);            
+                        break;
                     }
-
-                    double med{};
-                    std::sort(stud[i].mark.begin(), stud[i].mark.end());
-                    //cout <<endl<<"Student mark size: "<<stud[i].mark.size()<<endl;
-                    if ((stud[i].mark.size()-1) % 2 != 0) {
-                        med = stud[i].mark[stud[i].mark_count/2.0];
+                    case '2': {
+                        std::sort(stud.begin(), stud.end(), [](const Student& a, const Student& b) {
+                        return a.surname < b.surname;
+                        });
+                        print_marks(stud, counter);            
+                        break;
                     }
-                    else {
-                        med = (stud[i].mark[(stud[i].mark_count-1)/2.0] + stud[i].mark[stud[i].mark_count/2.0]) / 2.0;
+                    case '3': {
+                        std::sort(stud.begin(), stud.end(), [](const Student& a, const Student& b) {
+                        return a.result < b.result;
+                        });
+                        print_marks(stud, counter);            
+                        break;
                     }
-                    cout << setw(g) <<left<<std::setprecision(3)<< (0.4*(sum/stud[i].mark_count)+0.6*stud[i].exam) << setw(g)<< left << std::setprecision(3) <<  (0.4*med+0.6*stud[i].exam) << endl; // kur mediana vietoj vidurkio imti mediana
+                    case '4': {
+                        std::sort(stud.begin(), stud.end(), [](const Student& a, const Student& b) {
+                        return a.median < b.median;
+                        });
+                        print_marks(stud, counter);            
+                        break;
+                    }
+                    default: {
+                        cout << "\n\nInvalid choice. Please try again.\n";
+                    }
                 }
-                cout<<endl;             
-                break;
             }
+
             
             case '6':{
                 cout <<endl<< "quitting... bye" << endl;
@@ -499,8 +558,10 @@ int main() {
             
             
             //break;
-            default:
+            default: {
                 cout << "\n\nInvalid choice. Please try again.\n";
+            }
+                
         }
     }
     
