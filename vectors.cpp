@@ -1,5 +1,6 @@
 #include <algorithm>
 //#include <cstdlib>
+#include <cctype>
 #include <cstdio>
 #include <cstdlib>
 #include <iomanip>
@@ -11,6 +12,7 @@
 #include  <fstream>
 #include <vector>
 #include <chrono>
+#include <filesystem>
 
 //using namespace std;
 using std::cout;
@@ -134,7 +136,18 @@ void print_marks (vector<Student> stud, int counter) {
     cout<<endl; 
 }
 
+vector<string> listTxtFiles() {
+  std::vector<std::string> txtFiles;
+  for (const auto& entry : std::filesystem::directory_iterator(".")) {
+    if (entry.is_regular_file() && entry.path().extension() == ".txt") {
+      txtFiles.push_back(entry.path().filename().string());
+    }
+  }
+  return txtFiles;
+}
+
 int main() {
+    vector<string> txtFiles = listTxtFiles();
     vector<Student> stud;
     //Student stud[1000];
     vector <string> name;
@@ -384,10 +397,10 @@ int main() {
             }
             case '4': {
                 //stud.reserve(1000000);
-                
-                string temp;
-                
+                /*
                 system("clear");
+                string temp;
+                    
                 string filename;
                 cout<<"Available files:"<<endl;
                 system("dir *.txt");
@@ -395,7 +408,49 @@ int main() {
                 cout <<"--> ";
                 cin >> filename;
                 ifstream in (filename);
+                
                 auto start = std::chrono::high_resolution_clock::now(); // Paleisti
+                int homework_count = returnNumberOfHomework(filename);
+                int lineNum = lineCount(filename);
+                getline(in, temp);
+                                    
+                string word;*/
+                string filename;
+                string temp;
+                if (!txtFiles.empty()) {
+                    system("clear");
+                    cout << "Choose a .txt file to open:\n";
+                    for (size_t i = 0; i < txtFiles.size(); ++i) {
+                    cout << i << ") " << txtFiles[i] << "\n";
+                    }
+                    cout <<"--> ";
+                    int choice;
+                    while (true) {
+                        cin >> choice;
+                        if (choice >= 1 && choice <= txtFiles.size()) {
+                            filename = txtFiles[choice]; // subtract 1 because array indices start at 0
+                            // Open the chosen file here
+                            //cout << "You chose: " << filename << "\n";
+                            break; 
+                        } else {
+                            cout << "Invalid choice, try again:\n";
+                        }
+                    }
+
+                    if (choice >= 0 && choice < txtFiles.size()) {
+                    filename = txtFiles[choice];
+                    // Open the chosen file here
+                    cout << "You chose: " << filename << "\n";
+                    } 
+                    else {
+                    cout << "Invalid choice\n";
+                    }
+                } 
+                else {
+                    std::cout << "No .txt files found in this directory.\n";
+                }
+                auto start = std::chrono::high_resolution_clock::now(); // Paleisti
+                ifstream in (filename);
                 int homework_count = returnNumberOfHomework(filename);
                 int lineNum = lineCount(filename);
                 getline(in, temp);
@@ -490,6 +545,7 @@ int main() {
                 break;
             }
             case '5': {
+                system("clear");
                 /*
                 for (int i = 0; i < counter; i++) {
                     cout <<"Name: "<< stud[i].name << endl;
@@ -514,7 +570,14 @@ int main() {
                 switch (choice1) {
                     case '1': {
                         std::sort(stud.begin(), stud.end(), [](const Student& a, const Student& b) {
-                        return a.name < b.name;
+                        
+                        //string aTemp = a.name;
+                        //string bTemp = b.name;
+
+                        //std::transform(aTemp.begin(), aTemp.end(), aTemp.begin(), [](char c) {return std::tolower(c);});
+                        //std::transform(bTemp.begin(), bTemp.end(), bTemp.begin(), [](char c) {return std::tolower(c);});
+
+                        return (a.name) < (b.name);
                         });
                         print_marks(stud, counter);            
                         break;
@@ -542,8 +605,10 @@ int main() {
                     }
                     default: {
                         cout << "\n\nInvalid choice. Please try again.\n";
+                        continue;
                     }
                 }
+                break;
             }
 
             
