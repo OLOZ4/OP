@@ -396,29 +396,10 @@ int main() {
                 break;
             }
             case '4': {
-                //stud.reserve(1000000);
-                /*
-                system("clear");
-                string temp;
-                    
-                string filename;
-                cout<<"Available files:"<<endl;
-                system("dir *.txt");
-                cout<<endl <<"Enter file name:"<<endl;
-                cout <<"--> ";
-                cin >> filename;
-                ifstream in (filename);
-                
-                auto start = std::chrono::high_resolution_clock::now(); // Paleisti
-                int homework_count = returnNumberOfHomework(filename);
-                int lineNum = lineCount(filename);
-                getline(in, temp);
-                                    
-                string word;*/
                 string filename;
                 string temp;
                 if (!txtFiles.empty()) {
-                    system("clear");
+                    //system("clear");
                     cout << "Choose a .txt file to open:\n";
                     for (size_t i = 0; i < txtFiles.size(); ++i) {
                     cout << i << ") " << txtFiles[i] << "\n";
@@ -428,130 +409,55 @@ int main() {
                     while (true) {
                         cin >> choice;
                         if (choice >= 1 && choice <= txtFiles.size()) {
-                            filename = txtFiles[choice]; // subtract 1 because array indices start at 0
-                            // Open the chosen file here
-                            //cout << "You chose: " << filename << "\n";
+                            filename = txtFiles[choice];
                             break; 
                         } else {
                             cout << "Invalid choice, try again:\n";
                         }
                     }
-
-                    if (choice >= 0 && choice < txtFiles.size()) {
-                    filename = txtFiles[choice];
-                    // Open the chosen file here
-                    cout << "You chose: " << filename << "\n";
-                    } 
-                    else {
-                    cout << "Invalid choice\n";
-                    }
                 } 
                 else {
                     std::cout << "No .txt files found in this directory.\n";
                 }
+
                 auto start = std::chrono::high_resolution_clock::now(); // Paleisti
                 ifstream in (filename);
                 int homework_count = returnNumberOfHomework(filename);
                 int lineNum = lineCount(filename);
                 getline(in, temp);
-                                    
+                //stud.reserve(lineNum);                    
                 string word;
-
+                Student temp_student{};
                 while (getline(in, temp)) {   
                     std::istringstream stream (temp);
                     while (stream) {
-                        stud.reserve(lineNum);
-                        stud.push_back(Student());
-                        int temp1;
-                        string temp2;     
-                        //cout << "Name: ";
-                        stream >> word;
-                        stud[counter].name = word;
-                        //cout << word<<" " <<  endl;
-                        //cout << "Surname: ";
-                        stream >> word;
-                        stud[counter].surname = word;
-                        //cout << word<< endl;
-                        for (int i = 0; i < homework_count; i++) {
-                            //cout << "Mark " << i<< ": ";
+                        stream >> temp_student.name >> temp_student.surname;
+                        while (stream) {
                             stream >> word;
-                            temp1 = std::stoi(word);
-                            //cout << temp1<< endl;
-                            stud[counter].mark.push_back(temp1);
-                            stud[counter].mark_count++;
-
+                            temp_student.mark.push_back(std::stoi(word));
                         }
-                        
-                        //cout << "Exam: ";
-                        stream >> word;
-                        temp1 = stoi(word);
-                        stud[counter].exam = temp1;
-                        //cout << word<< endl;
-                        //cout << "---------------------------"<<endl;
-                        stream >> word;
-                        counter ++;
-                        
-                        /*
-                        stud.push_back(Student());
-                        
-                        stream >> stud[counter].name >> stud[counter].surname;
-                        stud[counter].mark.push_back(0);
-                        for (int i = 0; i < homework_count; i++) {
-                            stream >> temp2;
-                            temp1 = std::stoi(temp2);
-                            stud[counter].mark[stud[counter].mark_count] = temp1;
-                            stud[counter].mark_count ++;
-                        }
-                        stream >> stud[counter].exam;
-                        counter ++;
-                        stream >> word;
-                        */
-                        
-            
+                        temp_student.exam = temp_student.mark.back();
+                        temp_student.mark.pop_back();
+                        temp_student.mark_count = temp_student.mark.size();
+                        stud.push_back(std::move(temp_student));
+                        counter++;
                     }
-                    
-
-                    
-                    /*
-                    
-                    */
-                    //cout <<"----------------------------------"<<endl;
-                    /*
-                    
-                    //cout << temp << endl;
-                    */
-                    }
+                }
                     auto end = std::chrono::high_resolution_clock::now(); // Stabdyti
                     std::chrono::duration<double> diff = end-start;
                     cout << "Reading successful. Took: "<< diff.count() << " s\n"<<endl;
+                    cout <<"Homework number is: "<< homework_count <<endl;
                     in.close();
-
-                //string buffer;
-
-                // Read from the file into the string
-                //in.seekg(0, std::ios::beg);
-                //buffer.assign((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
-
-                //cout << buffer << endl;
-                
-                
-
-                
-                //cout<< "nmuber of homework: "<<returnNumberOfHomework("kursiokai.txt")<<endl;
-                //cout<< "nmuber of homework: "<<returnNumberOfHomework("studentai10000.txt")<<endl;
-                //cout<< "nmuber of homework: "<<returnNumberOfHomework("studentai100000.txt")<<endl;
-                //cout<< "nmuber of homework: "<<returnNumberOfHomework("studentai1000000.txt")<<endl;
-                //cout<<endl;
                 break;
             }
             case '5': {
-                system("clear");
+                //system("clear");
                 /*
                 for (int i = 0; i < counter; i++) {
                     cout <<"Name: "<< stud[i].name << endl;
                     cout <<"Surname: "<< stud[i].surname << endl;
                     cout <<"Exam mark: "<< stud[i].exam << endl;
-                    for (int j = 0; j < stud[i].mark_count; j++) {
+                    for (int j = 0; j < stud[i].mark.size(); j++) {
                         cout << stud[i].mark[j] << " ";
                     }
                     cout << endl;
@@ -559,6 +465,7 @@ int main() {
                 }
                 */
                 count_marks(stud, counter);
+                cout <<"there are: "<<stud.size()<<"students"<<endl;
                  cout << R"(Sort by:
 1) student name
 2) student surname
