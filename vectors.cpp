@@ -1,4 +1,5 @@
 #include "header.h"
+#include <ios>
 
 int main() {
     vector <string> name;
@@ -105,7 +106,7 @@ int main() {
                     cout << "Choose a .txt file to open:\n";
                     for (size_t i = 0; i < txtFiles.size(); ++i) {
                     cout << i << ") " << txtFiles[i] << "\n";
-                    }
+                        }
                     cout <<"--> ";
                     int choice;
                     while (true) {
@@ -122,8 +123,15 @@ int main() {
                     std::cout << "No .txt files found in this directory.\n";
                 }
 
+                ifstream in(filename);
+                try {
+                    ifstream in(filename);
+                    in.exceptions ( ifstream::eofbit | ifstream::failbit | ifstream::badbit );
+                }catch(std::exception const& e){
+                cout << "Klaida atidarant faila: " << e.what() << std::endl;
+                break;
+                }
                 auto start = std::chrono::high_resolution_clock::now(); // Paleisti
-                ifstream in (filename);
                 int lineNum = lineCount(filename);
                 getline(in, temp);
                 stud.reserve(lineNum);                    
@@ -146,8 +154,8 @@ int main() {
                     }
                 }
                     auto end = std::chrono::high_resolution_clock::now(); // Stabdyti
-                    std::chrono::duration<double> diff = end-start;
-                    cout << "Reading successful. Took: "<< diff.count() << " s\n"<<endl;
+                    //std::chrono::duration<double> diff = end-start;
+                    //cout << "Reading successful. Took: "<< diff.count() << " s\n"<<endl;
                     in.close();
                 break;
             }
