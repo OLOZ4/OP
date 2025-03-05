@@ -399,7 +399,7 @@ int main() {
                 string filename;
                 string temp;
                 if (!txtFiles.empty()) {
-                    //system("clear");
+                    system("clear");
                     cout << "Choose a .txt file to open:\n";
                     for (size_t i = 0; i < txtFiles.size(); ++i) {
                     cout << i << ") " << txtFiles[i] << "\n";
@@ -425,7 +425,7 @@ int main() {
                 int homework_count = returnNumberOfHomework(filename);
                 int lineNum = lineCount(filename);
                 getline(in, temp);
-                //stud.reserve(lineNum);                    
+                stud.reserve(lineNum);                    
                 string word;
                 Student temp_student{};
                 while (getline(in, temp)) {   
@@ -439,7 +439,10 @@ int main() {
                         temp_student.exam = temp_student.mark.back();
                         temp_student.mark.pop_back();
                         temp_student.mark_count = temp_student.mark.size();
-                        stud.push_back(std::move(temp_student));
+                        //stud.push_back(std::move(temp_student));
+                        
+                        stud.push_back(temp_student);
+                        temp_student.mark.clear();
                         counter++;
                     }
                 }
@@ -451,7 +454,7 @@ int main() {
                 break;
             }
             case '5': {
-                //system("clear");
+                system("clear");
                 /*
                 for (int i = 0; i < counter; i++) {
                     cout <<"Name: "<< stud[i].name << endl;
