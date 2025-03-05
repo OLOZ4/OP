@@ -1,4 +1,5 @@
 #include "header.h"
+#include <fstream>
 
 bool isValid ( string number ) {
     try {
@@ -79,7 +80,19 @@ void print_marks (vector<Student> stud) {
         cout <<setw(g)<< left<< stud[i].name << setw(g)<< left<< stud[i].surname; 
         cout << setw(g) <<left<<std::setprecision(3)<< stud[i].result << setw(g)<< left << std::setprecision(3) <<  stud[i].median << endl; // kur mediana vietoj vidurkio imti mediana
     }
-    cout<<endl; 
+    cout<<endl;
+    //-----------------------Writing-to-file-----------------------
+    std::ofstream out ("output.txt");
+    out << endl << setw(g) << left<< "Vardas: "<< setw(g) << left<< "Pavardė: "<< setw(g) << left<< "Pažymys(vid.): "<< setw(g) << left<< "Pažymys(med.): "<< endl;
+     out<<"__________________________________________________________________________________"<<endl;
+    for (int i = 0; i < stud.size(); i++) {
+        out <<setw(g)<< left<< stud[i].name << setw(g)<< left<< stud[i].surname; 
+        out << setw(g) <<left<<std::setprecision(3)<< stud[i].result << setw(g)<< left << std::setprecision(3) <<  stud[i].median << endl; // kur mediana vietoj vidurkio imti mediana
+    }
+    out.close();
+
+
+
 }
 
 vector<string> listTxtFiles() {
