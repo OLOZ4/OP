@@ -71,25 +71,9 @@ void readFile(vector<string>& name) {
         name.push_back(line);
     }
 }
-
-string get_name(vector<string> name) { 
+vector <string> name;
+string get_name() { 
     return name[randomNumber(1, name.size())];
-}
-
-int returnNumberOfHomework (string filename) {
-    string s;
-    int count = 0;
-    ifstream in (filename);
-    while (true) {
-        in >> s;
-        if (s == "Egz.") {
-        count = count - 2;
-        in.close();
-        return count;
-        break;
-        }
-        count++;
-   }
 }
 
 int lineCount (string filename) {
@@ -111,7 +95,6 @@ void count_marks (vector<Student>& stud) {
         }
         double med{};
         std::sort(stud[i].mark.begin(), stud[i].mark.end());
-        //cout <<endl<<"Student mark size: "<<stud[i].mark.size()<<endl;
         if ((stud[i].mark.size()-1) % 2 != 0) {
             med = stud[i].mark[stud[i].mark.size()/2.0];
         }
@@ -147,7 +130,6 @@ vector<string> listTxtFiles() {
 int main() {
     vector<string> txtFiles = listTxtFiles();
     vector<Student> stud;
-    vector <string> name;
     char choice;
     readFile(name);
 
@@ -227,9 +209,9 @@ int main() {
 
             case '3': {
                 Student temp_student{};
-                temp_student.name = get_name(name);
+                temp_student.name = get_name();
                 cout << "Generated name is: "<< temp_student.name <<endl;
-                temp_student.surname = get_name(name);
+                temp_student.surname = get_name();
                 cout << "Generated surame name is: "<< temp_student.surname<<endl;
                 temp_student.exam = randomNumber(0, 10);
                 cout << "Generated exam mark was: "<< temp_student.exam<<endl;
@@ -268,7 +250,6 @@ int main() {
 
                 auto start = std::chrono::high_resolution_clock::now(); // Paleisti
                 ifstream in (filename);
-                int homework_count = returnNumberOfHomework(filename);
                 int lineNum = lineCount(filename);
                 getline(in, temp);
                 stud.reserve(lineNum);                    
@@ -293,7 +274,6 @@ int main() {
                     auto end = std::chrono::high_resolution_clock::now(); // Stabdyti
                     std::chrono::duration<double> diff = end-start;
                     cout << "Reading successful. Took: "<< diff.count() << " s\n"<<endl;
-                    cout <<"Homework number is: "<< homework_count <<endl;
                     in.close();
                 break;
             }
