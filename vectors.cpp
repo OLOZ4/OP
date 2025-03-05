@@ -124,12 +124,12 @@ void count_marks (vector<Student>& stud, int counter) {
     }
 }
 
-void print_marks (vector<Student> stud, int counter) {
+void print_marks (vector<Student> stud) {
     //count_marks(stud, counter);
     int g = 15;
     cout << endl << setw(g) << left<< "Vardas: "<< setw(g) << left<< "Pavardė: "<< setw(g) << left<< "Pažymys(vid.): "<< setw(g) << left<< "Pažymys(med.): "<< endl;
      cout<<"__________________________________________________________________________________"<<endl;
-    for (int i = 0; i < counter; i++) {
+    for (int i = 0; i < stud.size(); i++) {
         cout <<setw(g)<< left<< stud[i].name << setw(g)<< left<< stud[i].surname; 
         cout << setw(g) <<left<<std::setprecision(3)<< stud[i].result << setw(g)<< left << std::setprecision(3) <<  stud[i].median << endl; // kur mediana vietoj vidurkio imti mediana
     }
@@ -149,21 +149,11 @@ vector<string> listTxtFiles() {
 int main() {
     vector<string> txtFiles = listTxtFiles();
     vector<Student> stud;
-    //Student stud[1000];
     vector <string> name;
-    //string names[2400];
     char choice;
     int counter = 0;
-    //string name, username {};
     readFile(name);
-    //cout <<endl<< "name: "<<  get_name(name)<<endl;
-    //cout<< endl<<" size: "<<name.size();
-    //for (const auto& name : name) {
-        //std::cout << name << std::endl;
-    //}
-
-    //cout << name(names)<<endl;
-    
+        
     while (true) {
         cout << R"(Select:
 1) to add a new student
@@ -175,224 +165,89 @@ int main() {
 --> )";
         cin >> choice;
         switch (choice) {
-            case '1': {
-                stud.push_back(Student());
-                
-                //bool examm = false;
-                string exam_mark;
+            case '1': {                
+                string exam_mark, mark;
+                Student temp_student;
                 cout << "Enter name: ";
-                cin >> stud[counter].name; 
+                cin >> temp_student.name;
                 cout << "Enter surname: ";
-                cin >> stud[counter].surname;
-
+                cin >> temp_student.surname;
                 while (true) {
                     cout << "Enter exam mark (0-10): ";
                     cin >> exam_mark;
                     if (isValid(exam_mark)) {
-                        stud[counter].exam = stoi(exam_mark);
+                        temp_student.exam = std::stoi(exam_mark);
                         break;
                     }
                     else {
                         cout << "Invalid input. Please enter a valid mark." << endl;
-                        continue;   
+                        continue;
                     }
                 }
                 while (true) {
-                    int mark;
-                    stud[counter].mark.push_back(0);
-                    string input;
                     cout << "Enter a mark (or 'q' to quit): ";
-                    cin >> input;
+                    cin >> mark;
 
-                    if (input == "q") {
+                    if (mark == "q") {
+                        temp_student.mark_count = temp_student.mark.size();
+                        stud.push_back(temp_student);
+                        temp_student.mark.clear();
                         counter++;
                         cout << counter << endl;
                         break;
-
                     }
                     try {
-                        if (isValid(input)) {
-                            //int* newArr = new int[stud[counter].mark_count + 1];
-                            //if (stud[counter].mark != NULL) {
-                                //for (int i = 0; i < stud[counter].mark_count; i++) {
-                                    //newArr[i] = stud[counter].mark[i];
-                                //}
-                            //}
-                            //delete stud[counter].mark;
-                            //stud[counter].mark = newArr;
-
-                            stud[counter].mark[stud[counter].mark_count] = stoi(input);
-                            stud[counter].mark_count ++;
-                            //stud[counter].mark[stud[counter].mark_count-1] = stoi(input);
-                            
+                        if (isValid(mark)) {
+                            temp_student.mark.push_back(std::stoi(mark));
                         }
                         else {
                             cout << "Invalid input. Please enter a valid mark." << endl;
                             continue;
                         }
                     } 
-                    
                     catch (const std::invalid_argument&) {
                         cout << "Invalid input. Please enter a valid mark." << endl;
                         continue;    
                     }
                     
-                }
-            
-
-            break;
+                } 
+                break;
             }
             
             case '2': {
-                stud.push_back(Student());
-                bool examm = false;
-                string exam_mark;
+                Student temp_student{};
                 cout << "Enter name: ";
-                cin >> stud[counter].name;
+                cin >> temp_student.name;
                 cout << "Enter surname: ";
-                cin >> stud[counter].surname;
-                stud[counter].exam = randomNumber(0, 10);
-                cout << "Generated exam mark was: "<< stud[counter].exam<<endl;
-                stud[counter].mark.push_back(0);
+                cin >> temp_student.surname;
+                cout << "Generated exam mark was: "<< temp_student.exam<<endl;
                 for (int i = 0; i < randomNumber(3, 10); i++) {
-                    stud[counter].mark[stud[counter].mark_count] = randomNumber(0, 10);
-                    cout << "Generated mark was: "<< stud[counter].mark[stud[counter].mark_count]<<endl;
-                    stud[counter].mark_count ++;
+                    temp_student.mark.push_back(randomNumber(0, 10));
+                    cout << "Generated mark was: "<< temp_student.mark.back() << endl;
                 }
-                cout<<endl;
+                temp_student.mark_count = temp_student.mark.size();
+                stud.push_back(temp_student);
+                temp_student.mark.clear();
                 counter++;
-                /*
-                while (true) {
-                    cout << "Press 'a' to generate exam mark: ";
-                    cin >> exam_mark;
-                    if (exam_mark == "a") {
-                        stud[counter].exam = randomNumber(0, 10);
-                        cout << "Generated exam mark was: "<< stud[counter].exam<<endl;
-                        break;
-                    }
-                    else {
-                        cout << "Invalid input. Press 'a' to generate exam mark." << endl;
-                        continue;   
-                    }
-                }
-                while (true) {
-                    stud[counter].mark.push_back(0);
-                    int mark;
-                    string input;
-                    cout << "Press 'a' to generate a mark or 'q' to quit: ";
-                    cin >> input;
-
-                    if (input == "q") {
-                        counter++;
-                        //cout << counter << endl;
-                        break;
-
-                    }
-                    else if (input == "a") {
-
-                        //int* newArr = new int[stud[counter].mark_count + 1];
-                        //if (stud[counter].mark != NULL) {
-                            //for (int i = 0; i < stud[counter].mark_count; i++) {
-                                //newArr[i] = stud[counter].mark[i];
-                                //}
-                        //}
-
-                        //delete stud[counter].mark;
-                        //stud[counter].mark = newArr;    
-                
-                        stud[counter].mark_count ++;
-
-                        //stud[counter].mark[stud[counter].mark_count-1] = randomNumber(0, 10);
-                        stud[counter].mark[stud[counter].mark_count-1] = randomNumber(0, 10);
-                        cout << "Generated mark was: "<< stud[counter].mark[stud[counter].mark_count-1]<<endl;
-                    }  
-                    else {
-                        cout << "Invalid input. Please enter 'a' or 'q'." << endl;
-                        continue;
-                    }   
-                }
-                */
                 break;
             }
 
             case '3': {
-                stud.push_back(Student());
-                string exam_mark;
-                string in;
-                stud[counter].name = get_name(name);
-                cout << "Generated name is: "<< stud[counter].name<<endl;
-                stud[counter].surname = get_name(name);
-                cout << "Generated surame name is: "<< stud[counter].surname<<endl;
-                stud[counter].exam = randomNumber(0, 10);
-                cout << "Generated exam mark was: "<< stud[counter].exam<<endl;
-                stud[counter].mark.push_back(0);
+                Student temp_student{};
+                temp_student.name = get_name(name);
+                cout << "Generated name is: "<< temp_student.name <<endl;
+                temp_student.surname = get_name(name);
+                cout << "Generated surame name is: "<< temp_student.surname<<endl;
+                temp_student.exam = randomNumber(0, 10);
+                cout << "Generated exam mark was: "<< temp_student.exam<<endl;
                 for (int i = 0; i < randomNumber(3, 10); i++) {
-                    stud[counter].mark[stud[counter].mark_count] = randomNumber(0, 10);
-                    cout << "Generated mark was: "<< stud[counter].mark[stud[counter].mark_count]<<endl;
-                    stud[counter].mark_count ++;
+                    temp_student.mark.push_back(randomNumber(0, 10));
+                    cout << "Generated mark was: "<< temp_student.mark.back() << endl;
                 }
-                cout<<endl;
+                temp_student.mark_count = temp_student.mark.size();
+                stud.push_back(temp_student);
+                temp_student.mark.clear();
                 counter++;
-                /*
-                while (true) {
-                    cout << "Press 'a' to generate a name: ";
-                    cin >> in;
-                    if (in == "a") {
-                        stud[counter].name = get_name(name);
-                        cout << "Generated name is: "<< stud[counter].name<<endl;
-                        break;
-                    }
-                    else continue;
-                }
-                while (true)
-                {
-                    cout << "Press 'a' to generate a surname: ";
-                    cin >> in;
-                    if (in == "a") {
-                        stud[counter].surname = get_name(name);
-                        cout << "Generated surame name is: "<< stud[counter].surname<<endl;
-                        break;
-                    }
-                    else continue;
-                }
-                while (true) {
-                    cout << "Press 'a' to generate exam mark: ";
-                    cin >> exam_mark;
-                    if (exam_mark == "a") {
-                        stud[counter].exam = randomNumber(0, 10);
-                        cout << "Generated exam mark was: "<< stud[counter].exam<<endl;
-                        break;
-                    }
-                    else {
-                        cout << "Invalid input. Press 'a' to generate exam mark." << endl;
-                        continue;   
-                    }
-                }
-                while (true) {
-                    int mark;
-                    string input;
-                    cout << "Pres 'a' to generate a mark or 'q' to quit: ";
-                    cin >> input;
-                    stud[counter].mark.push_back(0);
-
-
-                    if (input == "q") {
-                        counter++;
-                        //cout << counter << endl;
-                        break;
-
-                    }
-                    else if (input == "a") {
-                        stud[counter].mark[stud[counter].mark_count] = randomNumber(0, 10);
-                        cout << "Generated mark was: "<< stud[counter].mark[stud[counter].mark_count]<<endl;
-                        stud[counter].mark_count ++;
-                    }  
-                    else {
-                        cout << "Invalid input. Please enter 'a' or 'q'." << endl;
-                        continue;
-                    }   
-                }
-                */
                 break;
             }
             case '4': {
@@ -481,36 +336,30 @@ int main() {
                     case '1': {
                         std::sort(stud.begin(), stud.end(), [](const Student& a, const Student& b) {
                         
-                        //string aTemp = a.name;
-                        //string bTemp = b.name;
-
-                        //std::transform(aTemp.begin(), aTemp.end(), aTemp.begin(), [](char c) {return std::tolower(c);});
-                        //std::transform(bTemp.begin(), bTemp.end(), bTemp.begin(), [](char c) {return std::tolower(c);});
-
-                        return (a.name) < (b.name);
-                        });
-                        print_marks(stud, counter);            
+                        return (a.name) < (b.name);});
+                        print_marks(stud);            
                         break;
                     }
                     case '2': {
                         std::sort(stud.begin(), stud.end(), [](const Student& a, const Student& b) {
-                        return a.surname < b.surname;
-                        });
-                        print_marks(stud, counter);            
+
+                        return a.surname < b.surname;});
+                        print_marks(stud);            
                         break;
                     }
                     case '3': {
                         std::sort(stud.begin(), stud.end(), [](const Student& a, const Student& b) {
-                        return a.result < b.result;
-                        });
-                        print_marks(stud, counter);            
+
+                        return a.result < b.result;});
+                        print_marks(stud);            
                         break;
                     }
                     case '4': {
                         std::sort(stud.begin(), stud.end(), [](const Student& a, const Student& b) {
+
                         return a.median < b.median;
                         });
-                        print_marks(stud, counter);            
+                        print_marks(stud);            
                         break;
                     }
                     default: {
@@ -521,24 +370,15 @@ int main() {
                 break;
             }
 
-            
             case '6':{
                 cout <<endl<< "quitting... bye" << endl;
                 return 0;
             }
-            
 
-            //break;
-            
-            
-            
-            //break;
             default: {
                 cout << "\n\nInvalid choice. Please try again.\n";
-            }
-                
+            }   
         }
     }
-    
     return 0;
 }
