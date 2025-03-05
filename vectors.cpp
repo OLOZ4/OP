@@ -1,5 +1,5 @@
 #include "header.h"
-#include <ios>
+
 
 int main() {
     vector <string> name;
@@ -154,8 +154,8 @@ int main() {
                     }
                 }
                     auto end = std::chrono::high_resolution_clock::now(); // Stabdyti
-                    //std::chrono::duration<double> diff = end-start;
-                    //cout << "Reading successful. Took: "<< diff.count() << " s\n"<<endl;
+                    std::chrono::duration<double> diff = end-start;
+                    cout << "Reading successful. Took: "<< diff.count() << " s\n"<<endl;
                     in.close();
                 break;
             }

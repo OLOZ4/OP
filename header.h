@@ -3,14 +3,15 @@
 #include <cstdio>
 #include <cstdlib>
 #include <iomanip>
-#include  <iostream>
+#include <iostream>
 #include <random>
 #include <sstream>
-#include  <string>
-#include  <fstream>
+#include <string>
+#include <fstream>
 #include <vector>
 #include <chrono>
 #include <filesystem>
+#include <ios>
 
 //using namespace std;
 using std::cout;
