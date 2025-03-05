@@ -1,5 +1,4 @@
 #include "header.h"
-#include <fstream>
 
 bool isValid ( string number ) {
     try {
@@ -90,6 +89,7 @@ void print_marks (vector<Student> stud) {
         out << setw(g) <<left<<std::setprecision(3)<< stud[i].result << setw(g)<< left << std::setprecision(3) <<  stud[i].median << endl; // kur mediana vietoj vidurkio imti mediana
     }
     out.close();
+    //-------------------------------------------------------------
 
 
 
