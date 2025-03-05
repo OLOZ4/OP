@@ -1,3 +1,4 @@
+/*
 #include <algorithm>
 //#include <cstdlib>
 #include <cctype>
@@ -126,8 +127,11 @@ vector<string> listTxtFiles() {
   }
   return txtFiles;
 }
+*/
+#include "header.h"
 
 int main() {
+    vector <string> name;
     vector<string> txtFiles = listTxtFiles();
     vector<Student> stud;
     char choice;
@@ -209,9 +213,9 @@ int main() {
 
             case '3': {
                 Student temp_student{};
-                temp_student.name = get_name();
+                temp_student.name = get_name(name);
                 cout << "Generated name is: "<< temp_student.name <<endl;
-                temp_student.surname = get_name();
+                temp_student.surname = get_name(name);
                 cout << "Generated surame name is: "<< temp_student.surname<<endl;
                 temp_student.exam = randomNumber(0, 10);
                 cout << "Generated exam mark was: "<< temp_student.exam<<endl;
