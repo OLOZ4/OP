@@ -30,7 +30,6 @@ struct Student {
     string surname{};
     int exam{};
     vector<int> mark{};
-    int mark_count = 0;
     double result;
     double median;
 };
@@ -104,28 +103,27 @@ int lineCount (string filename) {
 
 }
 
-void count_marks (vector<Student>& stud, int counter) {
-    for (int i = 0; i < counter; i++) {
+void count_marks (vector<Student>& stud) {
+    for (int i = 0; i < stud.size(); i++) {
         double sum = 0;
-        for (int j = 0; j < stud[i].mark_count; j++) {
+        for (int j = 0; j < stud[i].mark.size(); j++) {
         sum += stud[i].mark[j];
         }
         double med{};
         std::sort(stud[i].mark.begin(), stud[i].mark.end());
         //cout <<endl<<"Student mark size: "<<stud[i].mark.size()<<endl;
         if ((stud[i].mark.size()-1) % 2 != 0) {
-            med = stud[i].mark[stud[i].mark_count/2.0];
+            med = stud[i].mark[stud[i].mark.size()/2.0];
         }
         else {
-        med = (stud[i].mark[(stud[i].mark_count-1)/2.0] + stud[i].mark[stud[i].mark_count/2.0]) / 2.0;
+        med = (stud[i].mark[(stud[i].mark.size()-1)/2.0] + stud[i].mark[stud[i].mark.size()/2.0]) / 2.0;
         }
         stud[i].median = 0.4*med+0.6*stud[i].exam;
-        stud[i].result = 0.4*(sum/stud[i].mark_count)+0.6*stud[i].exam;
+        stud[i].result = 0.4*(sum/stud[i].mark.size())+0.6*stud[i].exam;
     }
 }
 
 void print_marks (vector<Student> stud) {
-    //count_marks(stud, counter);
     int g = 15;
     cout << endl << setw(g) << left<< "Vardas: "<< setw(g) << left<< "Pavardė: "<< setw(g) << left<< "Pažymys(vid.): "<< setw(g) << left<< "Pažymys(med.): "<< endl;
      cout<<"__________________________________________________________________________________"<<endl;
@@ -151,9 +149,8 @@ int main() {
     vector<Student> stud;
     vector <string> name;
     char choice;
-    int counter = 0;
     readFile(name);
-        
+
     while (true) {
         cout << R"(Select:
 1) to add a new student
@@ -189,11 +186,8 @@ int main() {
                     cin >> mark;
 
                     if (mark == "q") {
-                        temp_student.mark_count = temp_student.mark.size();
                         stud.push_back(temp_student);
                         temp_student.mark.clear();
-                        counter++;
-                        cout << counter << endl;
                         break;
                     }
                     try {
@@ -220,15 +214,14 @@ int main() {
                 cin >> temp_student.name;
                 cout << "Enter surname: ";
                 cin >> temp_student.surname;
+                temp_student.exam = randomNumber(0, 10);
                 cout << "Generated exam mark was: "<< temp_student.exam<<endl;
                 for (int i = 0; i < randomNumber(3, 10); i++) {
                     temp_student.mark.push_back(randomNumber(0, 10));
                     cout << "Generated mark was: "<< temp_student.mark.back() << endl;
                 }
-                temp_student.mark_count = temp_student.mark.size();
                 stud.push_back(temp_student);
                 temp_student.mark.clear();
-                counter++;
                 break;
             }
 
@@ -244,10 +237,8 @@ int main() {
                     temp_student.mark.push_back(randomNumber(0, 10));
                     cout << "Generated mark was: "<< temp_student.mark.back() << endl;
                 }
-                temp_student.mark_count = temp_student.mark.size();
                 stud.push_back(temp_student);
                 temp_student.mark.clear();
-                counter++;
                 break;
             }
             case '4': {
@@ -293,12 +284,10 @@ int main() {
                         }
                         temp_student.exam = temp_student.mark.back();
                         temp_student.mark.pop_back();
-                        temp_student.mark_count = temp_student.mark.size();
                         //stud.push_back(std::move(temp_student));
                         
                         stud.push_back(temp_student);
                         temp_student.mark.clear();
-                        counter++;
                     }
                 }
                     auto end = std::chrono::high_resolution_clock::now(); // Stabdyti
@@ -311,7 +300,7 @@ int main() {
             case '5': {
                 system("clear");
                 /*
-                for (int i = 0; i < counter; i++) {
+                for (int i = 0; i < stud.size(); i++) {
                     cout <<"Name: "<< stud[i].name << endl;
                     cout <<"Surname: "<< stud[i].surname << endl;
                     cout <<"Exam mark: "<< stud[i].exam << endl;
@@ -322,8 +311,8 @@ int main() {
                     
                 }
                 */
-                count_marks(stud, counter);
-                cout <<"there are: "<<stud.size()<<"students"<<endl;
+                count_marks(stud);
+                cout <<"there are: "<<stud.size()<<" students"<<endl;
                  cout << R"(Sort by:
 1) student name
 2) student surname
