@@ -14,7 +14,6 @@
 #include <ios>
 #include <stdexcept>
 
-
 //using namespace std;
 using std::cout;
 using std::cin;
