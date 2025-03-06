@@ -12,6 +12,8 @@
 #include <chrono>
 #include <filesystem>
 #include <ios>
+#include <stdexcept>
+
 
 //using namespace std;
 using std::cout;
@@ -32,8 +34,6 @@ struct Student {
     double result;
     double median;
 };
-
-
 
 bool isValid ( string number );
 

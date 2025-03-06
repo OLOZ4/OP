@@ -7,6 +7,7 @@ bool isValid ( string number ) {
         else return false;
     }
     catch (const std::invalid_argument&) {
+        cout <<"Klaida, iveskite teisinga pazymi! "<<endl;
         return false;
     }    
 }

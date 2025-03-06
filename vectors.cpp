@@ -1,8 +1,10 @@
 #include "header.h"
 
 
+
+
 int main() {
-    vector <string> name;
+    vector<string> name;
     vector<string> txtFiles = listTxtFiles();
     vector<Student> stud;
     char choice;
@@ -20,7 +22,8 @@ int main() {
         cin >> choice;
         switch (choice) {
             case '1': {                
-                string exam_mark, mark;
+                string mark;
+                int exam_mark;
                 Student temp_student;
                 cout << "Enter name: ";
                 cin >> temp_student.name;
@@ -28,15 +31,11 @@ int main() {
                 cin >> temp_student.surname;
                 while (true) {
                     cout << "Enter exam mark (0-10): ";
-                    cin >> exam_mark;
-                    if (isValid(exam_mark)) {
-                        temp_student.exam = std::stoi(exam_mark);
-                        break;
-                    }
-                    else {
-                        cout << "Invalid input. Please enter a valid mark." << endl;
-                        continue;
-                    }
+                    cin >> mark;
+                    if (isValid(mark)) {
+                       temp_student.exam = std::stoi(mark) ;
+                       break;
+                    }  
                 }
                 while (true) {
                     cout << "Enter a mark (or 'q' to quit): ";
@@ -47,19 +46,9 @@ int main() {
                         temp_student.mark.clear();
                         break;
                     }
-                    try {
-                        if (isValid(mark)) {
-                            temp_student.mark.push_back(std::stoi(mark));
-                        }
-                        else {
-                            cout << "Invalid input. Please enter a valid mark." << endl;
-                            continue;
-                        }
-                    } 
-                    catch (const std::invalid_argument&) {
-                        cout << "Invalid input. Please enter a valid mark." << endl;
-                        continue;    
-                    }
+                    if (isValid(mark)) {
+                       temp_student.mark.push_back(std::stoi(mark)) ;
+                    }  
                     
                 } 
                 break;
@@ -172,7 +161,7 @@ int main() {
                     cout << endl;
                     
                 }
-                */
+               */ 
                 count_marks(stud);
                 cout <<"there are: "<<stud.size()<<" students"<<endl;
                  cout << R"(Sort by:
