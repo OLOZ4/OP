@@ -4,7 +4,10 @@ bool isValid ( string number ) {
     try {
         int mark = stoi(number);
         if (mark >= 0 && mark <= 10) return true;
-        else return false;
+        else {
+            cout <<"Klaida, iveskite teisinga pazymi! "<<endl;       
+            return false;
+        } 
     }
     catch (const std::invalid_argument&) {
         cout <<"Klaida, iveskite teisinga pazymi! "<<endl;
