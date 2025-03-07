@@ -1,11 +1,9 @@
 #include "header.h"
 
 
-
-
 int main() {
     vector<string> name;
-    vector<string> txtFiles = listTxtFiles();
+    vector<string> txtFiles;
     vector<Student> stud;
     char choice;
     readFile(name);
@@ -17,7 +15,8 @@ int main() {
 3) to add a new student (generated marks and names)
 4) to read from file
 5) to process and print all students
-6) to quit
+6) to generate files
+7) to quit
 --> )";
         cin >> choice;
         switch (choice) {
@@ -88,6 +87,8 @@ int main() {
                 break;
             }
             case '4': {
+                txtFiles.clear();
+                vector<string> txtFiles = listTxtFiles();
                 string filename;
                 string temp;
                 if (!txtFiles.empty()) {
@@ -209,8 +210,36 @@ int main() {
                 }
                 break;
             }
+            
+            case '6': {
+                const vector<int> size = {1000, 10000, 100000, 1000000, 10000000};
+                int g = 15;
+                int counter = 0;
+                int mark_count = randomNumber(2, 10);
 
-            case '6':{
+                std::ofstream out ("outputas.txt");
+                out << endl << setw(g) << left<< "Vardas"<< setw(g-1) << left<< "Pavardė";
+                for (int i = 1; i < mark_count+1; i++) {
+                out << setw(6) << std::right<< "ND";
+                out <<i;  
+                }
+                out << setw(6) << std::right<< "Egz."<<endl;
+                out<<"__________________________________________________________________________________"<<endl;
+                while (true) {
+                    out << setw(g) << left<<get_name(name)<< setw(g) << left<<get_name(name);
+                    for (int j = 0; j < mark_count+1; j++) {
+                        out << setw(6) <<std::right<< randomNumber(0, 10);
+                    }
+                    out << endl;
+                    counter++;
+                    //cout <<counter<<endl;
+                    if (counter > 10000000) break;
+                }
+                out.close();
+                break;
+            }
+
+            case '7': {
                 cout <<endl<< "quitting... bye" << endl;
                 return 0;
             }
