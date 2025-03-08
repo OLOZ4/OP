@@ -95,7 +95,7 @@ void write_marks (vector<Student> stud, string name) {
     int g = 15;
     auto start = std::chrono::high_resolution_clock::now(); // Paleisti
     std::ofstream out (name);
-    out << endl << setw(g) << left<< "Vardas: "<< setw(g) << left<< "Pavardė: "<< setw(g) << left<< "Pažymys(vid.): "<< setw(g) << left<< "Pažymys(med.): "<< endl;
+    out << setw(g) << left<< "Vardas: "<< setw(g) << left<< "Pavardė: "<< setw(g) << left<< "Pažymys(vid.): "<< setw(g) << left<< "Pažymys(med.): "<< endl;
      out<<"__________________________________________________________________________________"<<endl;
     for (int i = 0; i < stud.size(); i++) {
         out <<setw(g)<< left<< stud[i].name << setw(g)<< left<< stud[i].surname; 
@@ -104,7 +104,7 @@ void write_marks (vector<Student> stud, string name) {
     out.close();
     auto end = std::chrono::high_resolution_clock::now(); // Stabdyti
     std::chrono::duration<double> diff = end-start;
-    cout << "Writing file" <<name<<" was successful. Took: "<< diff.count() << " s\n"<<endl;
+    cout << "Writing file " <<name<<" was successful. Took: "<< diff.count() << " s"<<endl;
 }
 vector<string> listTxtFiles() {
   std::vector<std::string> txtFiles;
@@ -145,7 +145,7 @@ void import_file (vector<Student>& stud, string filename) {
         count_marks(stud);
         auto end = std::chrono::high_resolution_clock::now(); // Stabdyti
         std::chrono::duration<double> diff = end-start;
-        cout << "Importing file " <<filename<<" was successful. Took: "<< diff.count() << " s\n"<<endl;
+        cout << "Importing file " <<filename<<" was successful. Took: "<< diff.count() << " s"<<endl;
         in.close();
         
 }
@@ -180,7 +180,7 @@ void generate_file (int number) {
     out.close();
     auto end = std::chrono::high_resolution_clock::now(); // Stabdyti
     std::chrono::duration<double> diff = end-start;
-    cout << "Generating file "<<namefile<<" was successful. Took: "<< diff.count() << " s\n"<<endl;
+    cout << "Generating file "<<namefile<<" was successful. Took: "<< diff.count() << " s"<<endl;
 }
 
 void sort_file (vector<Student>& stud, string name) {
@@ -196,22 +196,19 @@ void divide_file (vector<Student>& stud,vector<Student>& kietiakai,vector<Studen
     auto start = std::chrono::high_resolution_clock::now(); // Paleisti
     nuskriaustukai.reserve(stud.size());
     kietiakai.reserve(stud.size());
-    while (true) {
-        if ( stud.back().result <= 5) {
-            kietiakai.push_back(stud.back());
-            stud.pop_back();
-        }
-        else if (stud.size() == 0) {
-            break;
-        }
-        else {
-            nuskriaustukai.push_back(stud.back());
-            stud.pop_back();
-        }
+    
+    while (stud.back().result >= 5.00) {
+        kietiakai.push_back(stud.back());
+        stud.pop_back();
     }
+    while (stud.size() != 0) {
+        nuskriaustukai.push_back(stud.back());
+        stud.pop_back();
+    }
+    
     nuskriaustukai.shrink_to_fit();
     kietiakai.shrink_to_fit();
     auto end = std::chrono::high_resolution_clock::now(); // Stabdyti
     std::chrono::duration<double> diff = end-start;
-    cout << "Dividing file "<<name<<" was successful. Took: "<< diff.count() << " s\n"<<endl;
+    cout << "Dividing file "<<name<<" was successful. Took: "<< diff.count() << " s"<<endl;
 }

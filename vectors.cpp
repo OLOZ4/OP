@@ -1,6 +1,5 @@
 #include "header.h"
-#include <string>
-#include <vector>
+
 
 
 int main() {
@@ -207,16 +206,16 @@ int main() {
                     import_file(stud,namefile);
                     sort_file(stud, namefile);
                     divide_file(stud,kietiakai,nuskriaustukai);
-                    write_marks(kietiakai, "studentai_kietiakai"+std::to_string(file_size[i])+".txt");
-                    write_marks(nuskriaustukai, "studentai_nuskriaustukai"+std::to_string(file_size[i])+".txt");
+                    write_marks(kietiakai, "studentai"+std::to_string(file_size[i])+"_kietiakai.txt");
+                    write_marks(nuskriaustukai, "studentai"+std::to_string(file_size[i])+"_nuskriaustukai.txt");
                     stud.clear();
                     nuskriaustukai.clear();
                     kietiakai.clear();
                     auto end = std::chrono::high_resolution_clock::now(); // Stabdyti
                     std::chrono::duration<double> diff = end-start;
-                    cout << "Processing file " <<namefile<<" was successful. Took: "<< diff.count() << " s\n"<<endl;
-                    cout <<"-------------------------------------------------------------------"<<endl;
-
+                    cout <<"======================================================================="<<endl;
+                    cout << "| Processing file "<< setw(25)<< left<<namefile<<" was successful. Took: "<< std::setprecision(3)<<diff.count() << " s |"<<endl;
+                    cout <<"======================================================================="<<endl<<endl;
                 }
                 
                 
