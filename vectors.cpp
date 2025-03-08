@@ -1,7 +1,4 @@
 #include "header.h"
-#include <cstdlib>
-
-
 
 int main() {
     vector<string> name;
@@ -11,6 +8,7 @@ int main() {
     readFile(name);
 
     while (true) {
+        cout <<endl;
         cout << R"(Select:
 1) to add a new student
 2) to add a new student (generated marks)
@@ -101,10 +99,11 @@ int main() {
                     cout << i << ") " << txtFiles[i] << "\n";
                         }
                     cout <<"--> ";
-                    system("clear");
                     int choice;
                     while (true) {
                         cin >> choice;
+                        system("clear");
+
                         if (choice >= 1 && choice <= txtFiles.size()) {
                             filename = txtFiles[choice];
                             break; 
@@ -143,7 +142,10 @@ int main() {
                     
                 }
                */ 
+
                 sort_students(stud);
+                count_marks(stud);
+                print_marks(stud);
                 cout <<endl;
                 break;
             }
@@ -156,7 +158,7 @@ int main() {
                 // padalainti faila i dvi kategorijas
                 // israsyti i du atskirus failus
                 // islcearinti stud vectoriu
-
+                system("clear");
                 const vector<int> file_size = {1000, 10000, 100000, 1000000, 10000000};
                 vector<Student> nuskriaustukai, kietiakai;
                 for (int i = 0; i < file_size.size(); i++) {
@@ -168,12 +170,12 @@ int main() {
                     divide_file(stud,kietiakai,nuskriaustukai);
                     auto end = std::chrono::high_resolution_clock::now(); // Stabdyti
                     std::chrono::duration<double> diff = end-start;
-                    //*---------------------------------
-                    cout<< "Sorting kietiakai"<<endl;
+                    /*---------------------------------
+                    cout<<endl<< "Sorting kietiakai:"<<endl;
                     sort_students(kietiakai);
-                    cout<< "Sorting nuskriaustukai"<<endl;
+                    cout<< "Sorting nuskriaustukai:"<<endl;
                     sort_students(nuskriaustukai);
-                    //*/---------------------------------
+                    /*///---------------------------------
                     auto start1 = std::chrono::high_resolution_clock::now(); // Paleisti
                     write_marks(kietiakai, "studentai"+std::to_string(file_size[i])+"_kietiakai.txt");
                     write_marks(nuskriaustukai, "studentai"+std::to_string(file_size[i])+"_nuskriaustukai.txt");
@@ -182,13 +184,10 @@ int main() {
                     kietiakai.clear();
                     auto end1 = std::chrono::high_resolution_clock::now(); // Stabdyti
                     std::chrono::duration<double> diff1 = end1-start1;
-                    cout <<"======================================================================="<<endl;
-                    cout << "| Processing file "<< setw(25)<< left<<namefile<<" was successful. Took: "<< std::setprecision(3)<<diff.count() + diff1.count() << " s |"<<endl;
-                    cout <<"======================================================================="<<endl<<endl;
-                }
-                
-                
-                
+                    cout <<"=========================================================="<<endl;
+                    cout << "| Processed file "<< setw(25)<< left<<namefile<<" Took: "<< std::setprecision(3)<<setw(5) <<left<<(diff.count() + diff1.count()) << " s |"<<endl;
+                    cout <<"=========================================================="<<endl<<endl;
+                }   
                 break;
             }
 

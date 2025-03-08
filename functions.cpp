@@ -188,7 +188,7 @@ void sort_file (vector<Student>& stud, string name) {
     std::sort(stud.begin(), stud.end(), [](const Student& a, const Student& b) {return a.result < b.result;});    
     auto end = std::chrono::high_resolution_clock::now(); // Stabdyti
     std::chrono::duration<double> diff = end-start;
-    cout << "Sorting file "<<name<<" was successful. Took: "<< diff.count() << " s\n"<<endl;
+    cout << "Sorting file "<<name<<" was successful. Took: "<< diff.count() << " s"<<endl;
 }
 // tikrai galima geriau, bet kaip? kazakda reikes pasidometi.
 void divide_file (vector<Student>& stud,vector<Student>& kietiakai,vector<Student>& nuskriaustukai) {
@@ -214,7 +214,7 @@ void divide_file (vector<Student>& stud,vector<Student>& kietiakai,vector<Studen
 }
 
 void sort_students (vector<Student>& stud) {
-    cout <<"there are: "<<stud.size()<<" Students"<<endl;
+    cout <<"There are: "<<stud.size()<<" Students"<<endl;
     cout << R"(Sort by:
 1) student name
 2) student surname
@@ -222,39 +222,44 @@ void sort_students (vector<Student>& stud) {
 4) student mark (median)
 --> )";
     char choice1;
+    while (true) {
     cin >> choice1;
     switch (choice1) {
-        case '1': {
-            std::sort(stud.begin(), stud.end(), [](const Student& a, const Student& b) {
-            
-            return (a.name) < (b.name);});
-            //print_marks(stud);            
-            break;
-        }
-        case '2': {
-            std::sort(stud.begin(), stud.end(), [](const Student& a, const Student& b) {
+            case '1': {
+                std::sort(stud.begin(), stud.end(), [](const Student& a, const Student& b) {
+                
+                return (a.name) < (b.name);});
+                //print_marks(stud);            
+                return;
+            }
+            case '2': {
+                std::sort(stud.begin(), stud.end(), [](const Student& a, const Student& b) {
 
-            return a.surname < b.surname;});
-            //print_marks(stud);            
-            break;
-        }
-        case '3': {
-            std::sort(stud.begin(), stud.end(), [](const Student& a, const Student& b) {
+                return a.surname < b.surname;});
+                //print_marks(stud);            
+                return;
+            }
+            case '3': {
+                std::sort(stud.begin(), stud.end(), [](const Student& a, const Student& b) {
 
-            return a.result < b.result;});
-            //print_marks(stud);            
-            break;
-        }
-        case '4': {
-            std::sort(stud.begin(), stud.end(), [](const Student& a, const Student& b) {
+                return a.result < b.result;});
+                //print_marks(stud);            
+                return;
+            }
+            case '4': {
+                std::sort(stud.begin(), stud.end(), [](const Student& a, const Student& b) {
 
-            return a.median < b.median;
-            });
-            //print_marks(stud);            
-            break;
+                return a.median < b.median;
+                });
+                //print_marks(stud);            
+                return;
+            }
+            default: {
+                cout << "\n\nInvalid choice. Please try again.\n--> ";
+                continue;
+            }
+            break;   
         }
-        default: {
-            cout << "\n\nInvalid choice. Please try again.\n";
-        }
+        
     }
 }
