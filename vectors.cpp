@@ -1,4 +1,5 @@
 #include "header.h"
+#include <string>
 
 
 int main() {
@@ -121,6 +122,8 @@ int main() {
                 cout << "Klaida atidarant faila: " << e.what() << std::endl;
                 break;
                 }
+
+                
                 auto start = std::chrono::high_resolution_clock::now(); // Paleisti
                 int lineNum = lineCount(filename);
                 getline(in, temp);
@@ -212,30 +215,22 @@ int main() {
             }
             
             case '6': {
-                const vector<int> size = {1000, 10000, 100000, 1000000, 10000000};
-                int g = 15;
-                int counter = 0;
-                int mark_count = randomNumber(2, 10);
+                // kokios funkcijos turetu buti igyvendintos:
+                // failu sukurimas
+                // nuskaityti faila 
+                // isrusiuoti faila
+                // padalainti faila i dvi kategorijas
+                // israsyti i du atskirus failus
 
-                std::ofstream out ("outputas.txt");
-                out << endl << setw(g) << left<< "Vardas"<< setw(g-1) << left<< "Pavardė";
-                for (int i = 1; i < mark_count+1; i++) {
-                out << setw(6) << std::right<< "ND";
-                out <<i;  
+                const vector<int> file_size = {1000, 10000, 100000, 1000000, 10000000};
+                
+                for (int i = 0; i < file_size.size(); i++) {
+                    generate_file(file_size[i]);
+
                 }
-                out << setw(6) << std::right<< "Egz."<<endl;
-                out<<"__________________________________________________________________________________"<<endl;
-                while (true) {
-                    out << setw(g) << left<<get_name(name)<< setw(g) << left<<get_name(name);
-                    for (int j = 0; j < mark_count+1; j++) {
-                        out << setw(6) <<std::right<< randomNumber(0, 10);
-                    }
-                    out << endl;
-                    counter++;
-                    //cout <<counter<<endl;
-                    if (counter > 10000000) break;
-                }
-                out.close();
+                
+                
+                
                 break;
             }
 

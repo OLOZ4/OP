@@ -23,6 +23,7 @@ using std::vector;
 using std::ifstream;
 using std::cerr;
 using std::left;
+using std::right;
 
 struct Student {
     string name{};
@@ -50,3 +51,7 @@ void count_marks (vector<Student>& stud);
 void print_marks (vector<Student> stud);
 
 vector<string> listTxtFiles();
+
+void import_file (vector<Student>& stud);
+
+void generate_file (int number);

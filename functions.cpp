@@ -108,3 +108,40 @@ vector<string> listTxtFiles() {
   }
   return txtFiles;
 }
+
+void import_file (vector<Student>& stud) {
+    
+}
+
+void generate_file (int number) {
+
+    int g = 15;
+    int counter = 0;
+    int mark_count = randomNumber(2, 10);
+
+    auto start = std::chrono::high_resolution_clock::now(); // Paleisti
+
+    string namefile = "studentai" + std::to_string(number) + ".txt";
+    std::ofstream out (namefile );
+    out  << setw(g) << left<< "Vardas"<< setw(g) << right<< "Pavardė";
+    for (int i = 1; i < mark_count+1; i++) {
+        out << setw(g) << right<< "ND";
+        out <<i;  
+    }
+    out << setw(g) << right<< "Egz."<<endl;
+
+    for (int j = 0; j < number; j++) {
+        out <<"Vardas";
+        out <<  setw(g) <<left <<j;
+        out << "Pavarde";
+        out  <<  setw(g) <<left << j;
+        for (int z = 0; z < mark_count+1; z++) {
+            out << setw(g) << left << randomNumber(0,10);
+        }
+        out << endl;
+    }
+    out.close();
+    auto end = std::chrono::high_resolution_clock::now(); // Stabdyti
+    std::chrono::duration<double> diff = end-start;
+    cout << "Generating file "<<namefile<<" was successful. Took: "<< diff.count() << " s\n"<<endl;
+}
