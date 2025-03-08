@@ -205,10 +205,56 @@ void divide_file (vector<Student>& stud,vector<Student>& kietiakai,vector<Studen
         nuskriaustukai.push_back(stud.back());
         stud.pop_back();
     }
-    
+
     nuskriaustukai.shrink_to_fit();
     kietiakai.shrink_to_fit();
     auto end = std::chrono::high_resolution_clock::now(); // Stabdyti
     std::chrono::duration<double> diff = end-start;
     cout << "Dividing file "<<name<<" was successful. Took: "<< diff.count() << " s"<<endl;
+}
+
+void sort_students (vector<Student>& stud) {
+    cout <<"there are: "<<stud.size()<<" Students"<<endl;
+    cout << R"(Sort by:
+1) student name
+2) student surname
+3) student mark (average)
+4) student mark (median)
+--> )";
+    char choice1;
+    cin >> choice1;
+    switch (choice1) {
+        case '1': {
+            std::sort(stud.begin(), stud.end(), [](const Student& a, const Student& b) {
+            
+            return (a.name) < (b.name);});
+            //print_marks(stud);            
+            break;
+        }
+        case '2': {
+            std::sort(stud.begin(), stud.end(), [](const Student& a, const Student& b) {
+
+            return a.surname < b.surname;});
+            //print_marks(stud);            
+            break;
+        }
+        case '3': {
+            std::sort(stud.begin(), stud.end(), [](const Student& a, const Student& b) {
+
+            return a.result < b.result;});
+            //print_marks(stud);            
+            break;
+        }
+        case '4': {
+            std::sort(stud.begin(), stud.end(), [](const Student& a, const Student& b) {
+
+            return a.median < b.median;
+            });
+            //print_marks(stud);            
+            break;
+        }
+        default: {
+            cout << "\n\nInvalid choice. Please try again.\n";
+        }
+    }
 }

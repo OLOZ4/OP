@@ -1,4 +1,5 @@
 #include "header.h"
+#include <cstdlib>
 
 
 
@@ -44,6 +45,7 @@ int main() {
                     if (mark == "q") {
                         stud.push_back(temp_student);
                         temp_student.mark.clear();
+                        system("clear");
                         break;
                     }
                     if (isValid(mark)) {
@@ -99,6 +101,7 @@ int main() {
                     cout << i << ") " << txtFiles[i] << "\n";
                         }
                     cout <<"--> ";
+                    system("clear");
                     int choice;
                     while (true) {
                         cin >> choice;
@@ -140,51 +143,8 @@ int main() {
                     
                 }
                */ 
-                //count_marks(stud);
-                cout <<"there are: "<<stud.size()<<" students"<<endl;
-                 cout << R"(Sort by:
-1) student name
-2) student surname
-3) student mark (average)
-4) student mark (median)
---> )";
-                char choice1;
-                cin >> choice1;
-                switch (choice1) {
-                    case '1': {
-                        std::sort(stud.begin(), stud.end(), [](const Student& a, const Student& b) {
-                        
-                        return (a.name) < (b.name);});
-                        print_marks(stud);            
-                        break;
-                    }
-                    case '2': {
-                        std::sort(stud.begin(), stud.end(), [](const Student& a, const Student& b) {
-
-                        return a.surname < b.surname;});
-                        print_marks(stud);            
-                        break;
-                    }
-                    case '3': {
-                        std::sort(stud.begin(), stud.end(), [](const Student& a, const Student& b) {
-
-                        return a.result < b.result;});
-                        print_marks(stud);            
-                        break;
-                    }
-                    case '4': {
-                        std::sort(stud.begin(), stud.end(), [](const Student& a, const Student& b) {
-
-                        return a.median < b.median;
-                        });
-                        print_marks(stud);            
-                        break;
-                    }
-                    default: {
-                        cout << "\n\nInvalid choice. Please try again.\n";
-                        continue;
-                    }
-                }
+                sort_students(stud);
+                cout <<endl;
                 break;
             }
             
@@ -206,15 +166,24 @@ int main() {
                     import_file(stud,namefile);
                     sort_file(stud, namefile);
                     divide_file(stud,kietiakai,nuskriaustukai);
+                    auto end = std::chrono::high_resolution_clock::now(); // Stabdyti
+                    std::chrono::duration<double> diff = end-start;
+                    //*---------------------------------
+                    cout<< "Sorting kietiakai"<<endl;
+                    sort_students(kietiakai);
+                    cout<< "Sorting nuskriaustukai"<<endl;
+                    sort_students(nuskriaustukai);
+                    //*/---------------------------------
+                    auto start1 = std::chrono::high_resolution_clock::now(); // Paleisti
                     write_marks(kietiakai, "studentai"+std::to_string(file_size[i])+"_kietiakai.txt");
                     write_marks(nuskriaustukai, "studentai"+std::to_string(file_size[i])+"_nuskriaustukai.txt");
                     stud.clear();
                     nuskriaustukai.clear();
                     kietiakai.clear();
-                    auto end = std::chrono::high_resolution_clock::now(); // Stabdyti
-                    std::chrono::duration<double> diff = end-start;
+                    auto end1 = std::chrono::high_resolution_clock::now(); // Stabdyti
+                    std::chrono::duration<double> diff1 = end1-start1;
                     cout <<"======================================================================="<<endl;
-                    cout << "| Processing file "<< setw(25)<< left<<namefile<<" was successful. Took: "<< std::setprecision(3)<<diff.count() << " s |"<<endl;
+                    cout << "| Processing file "<< setw(25)<< left<<namefile<<" was successful. Took: "<< std::setprecision(3)<<diff.count() + diff1.count() << " s |"<<endl;
                     cout <<"======================================================================="<<endl<<endl;
                 }
                 

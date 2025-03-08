@@ -61,3 +61,5 @@ void generate_file (int number);
 void sort_file (vector<Student>& stud, string name);
 
 void divide_file (vector<Student>& stud,vector<Student>& kietiakai,vector<Student>& nuskriaustukai);
+
+void sort_students (vector<Student>& stud);
