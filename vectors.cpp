@@ -1,5 +1,6 @@
 #include "header.h"
 #include <string>
+#include <vector>
 
 
 int main() {
@@ -91,7 +92,7 @@ int main() {
                 txtFiles.clear();
                 vector<string> txtFiles = listTxtFiles();
                 string filename;
-                string temp;
+                
                 if (!txtFiles.empty()) {
                     system("clear");
                     cout << "Choose a .txt file to open:\n";
@@ -114,7 +115,6 @@ int main() {
                     std::cout << "No .txt files found in this directory.\n";
                 }
 
-                ifstream in(filename);
                 try {
                     ifstream in(filename);
                     in.exceptions ( ifstream::eofbit | ifstream::failbit | ifstream::badbit );
@@ -123,33 +123,8 @@ int main() {
                 break;
                 }
 
-                
-                auto start = std::chrono::high_resolution_clock::now(); // Paleisti
-                int lineNum = lineCount(filename);
-                getline(in, temp);
-                stud.reserve(lineNum);                    
-                string word;
-                Student temp_student{};
-                while (getline(in, temp)) {   
-                    std::istringstream stream (temp);
-                    while (stream) {
-                        stream >> temp_student.name >> temp_student.surname;
-                        while (stream) {
-                            stream >> word;
-                            temp_student.mark.push_back(std::stoi(word));
-                        }
-                        temp_student.exam = temp_student.mark.back();
-                        temp_student.mark.pop_back();
-                        //stud.push_back(std::move(temp_student));
-                        
-                        stud.push_back(temp_student);
-                        temp_student.mark.clear();
-                    }
-                }
-                    auto end = std::chrono::high_resolution_clock::now(); // Stabdyti
-                    std::chrono::duration<double> diff = end-start;
-                    cout << "Reading successful. Took: "<< diff.count() << " s\n"<<endl;
-                    in.close();
+                import_file(stud, filename);
+
                 break;
             }
             case '5': {
@@ -166,7 +141,7 @@ int main() {
                     
                 }
                */ 
-                count_marks(stud);
+                //count_marks(stud);
                 cout <<"there are: "<<stud.size()<<" students"<<endl;
                  cout << R"(Sort by:
 1) student name
@@ -221,11 +196,26 @@ int main() {
                 // isrusiuoti faila
                 // padalainti faila i dvi kategorijas
                 // israsyti i du atskirus failus
+                // islcearinti stud vectoriu
 
                 const vector<int> file_size = {1000, 10000, 100000, 1000000, 10000000};
-                
+                vector<Student> nuskriaustukai, kietiakai;
                 for (int i = 0; i < file_size.size(); i++) {
-                    generate_file(file_size[i]);
+                    string namefile = "studentai" + std::to_string(file_size[i])+ ".txt";
+                    //generate_file(file_size[i]);
+                    auto start = std::chrono::high_resolution_clock::now(); // Paleisti
+                    import_file(stud,namefile);
+                    sort_file(stud, namefile);
+                    divide_file(stud,kietiakai,nuskriaustukai);
+                    write_marks(kietiakai, "studentai_kietiakai"+std::to_string(file_size[i])+".txt");
+                    write_marks(nuskriaustukai, "studentai_nuskriaustukai"+std::to_string(file_size[i])+".txt");
+                    stud.clear();
+                    nuskriaustukai.clear();
+                    kietiakai.clear();
+                    auto end = std::chrono::high_resolution_clock::now(); // Stabdyti
+                    std::chrono::duration<double> diff = end-start;
+                    cout << "Processing file " <<namefile<<" was successful. Took: "<< diff.count() << " s\n"<<endl;
+                    cout <<"-------------------------------------------------------------------"<<endl;
 
                 }
                 

@@ -50,8 +50,14 @@ void count_marks (vector<Student>& stud);
 
 void print_marks (vector<Student> stud);
 
+void write_marks (vector<Student> stud, string name);
+
 vector<string> listTxtFiles();
 
-void import_file (vector<Student>& stud);
+void import_file (vector<Student>& stud, string filename);
 
 void generate_file (int number);
+
+void sort_file (vector<Student>& stud, string name);
+
+void divide_file (vector<Student>& stud,vector<Student>& kietiakai,vector<Student>& nuskriaustukai);
