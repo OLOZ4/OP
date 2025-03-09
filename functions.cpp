@@ -1,6 +1,5 @@
 #include "header.h"
 
-
 bool isValid ( string number ) {
     try {
         int mark = stoi(number);
@@ -181,6 +180,10 @@ void generate_file (int number) {
     auto end = std::chrono::high_resolution_clock::now(); // Stabdyti
     std::chrono::duration<double> diff = end-start;
     cout << "Generating file "<<namefile<<" was successful. Took: "<< diff.count() << " s"<<endl;
+    std::ofstream outt;
+    outt.open("data.txt", std::fstream::app);
+    outt << namefile << " "<<diff.count()<<endl;
+    outt.close();
 }
 
 void sort_file (vector<Student>& stud, string name) {

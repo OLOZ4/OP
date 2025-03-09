@@ -163,7 +163,8 @@ int main() {
                 vector<Student> nuskriaustukai, kietiakai;
                 for (int i = 0; i < file_size.size(); i++) {
                     string namefile = "studentai" + std::to_string(file_size[i])+ ".txt";
-                    //generate_file(file_size[i]);
+                    generate_file(file_size[i]);
+                    /*
                     auto start = std::chrono::high_resolution_clock::now(); // Paleisti
                     import_file(stud,namefile);
                     sort_file(stud, namefile);
@@ -176,6 +177,7 @@ int main() {
                     cout<< "Sorting nuskriaustukai:"<<endl;
                     sort_students(nuskriaustukai);
                     /*///---------------------------------
+                    /*
                     auto start1 = std::chrono::high_resolution_clock::now(); // Paleisti
                     write_marks(kietiakai, "studentai"+std::to_string(file_size[i])+"_kietiakai.txt");
                     write_marks(nuskriaustukai, "studentai"+std::to_string(file_size[i])+"_nuskriaustukai.txt");
@@ -187,6 +189,7 @@ int main() {
                     cout <<"=========================================================="<<endl;
                     cout << "| Processed file "<< setw(25)<< left<<namefile<<" Took: "<< std::setprecision(3)<<setw(5) <<left<<(diff.count() + diff1.count()) << " s |"<<endl;
                     cout <<"=========================================================="<<endl<<endl;
+                    */
                 }   
                 break;
             }
