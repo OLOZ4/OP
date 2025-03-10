@@ -1,4 +1,4 @@
-1000
+### 1000
 
 | Bandymo numeris | Nuskaitymas | Rūšiavimas į konteinerius | Išvedimas į failus | Bendras laikas |
 |-----------------|-------------|---------------------------|--------------------|----------------|
@@ -20,7 +20,7 @@
 |Avg.|0.14843454|
 |Avg. /  1 studentui|0.00014843454|
 
-10000
+### 10000
 
 | Bandymo numeris | Nuskaitymas | Rūšiavimas į konteinerius | Išvedimas į failus | Bendras laikas |
 |-----------------|-------------|---------------------------|--------------------|----------------|
@@ -42,6 +42,8 @@
 |Avg.|1.3095056|
 |Avg. /  1 studentui|0.00013095056|
 
+### 100000
+
 | Bandymo numeris | Nuskaitymas | Rūšiavimas į konteinerius | Išvedimas į failus | Bendras laikas |
 |-----------------|-------------|---------------------------|--------------------|----------------|
 |1|0.315|0.2503|0.413|0.9783|
@@ -61,6 +63,8 @@
 |5|19.9198|
 |Avg.|13.865724|
 |Avg. /  1 studentui|0.00013865724|
+
+### 1000000
 
 | Bandymo numeris | Nuskaitymas | Rūšiavimas į konteinerius | Išvedimas į failus | Bendras laikas |
 |-----------------|-------------|---------------------------|--------------------|----------------|
@@ -83,6 +87,7 @@
 |Avg.|127.14452|
 |Avg. /  1 studentui|0.00012714452|
 
+### 10000000
 
 | Bandymo numeris | Nuskaitymas | Rūšiavimas į konteinerius | Išvedimas į failus | Bendras laikas |
 |-----------------|-------------|---------------------------|--------------------|----------------|
