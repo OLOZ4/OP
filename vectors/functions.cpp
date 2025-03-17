@@ -279,7 +279,7 @@ void print_metrics (string filename, float data, int num) {
 
     std::string command = "mkdir -p data";
     system(command.c_str());
-    string name = "/data"+extractNumbers(filename)+"."+type+".txt";
+    string name = "data/"+extractNumbers(filename)+"."+type+".txt";
     
     out.open(name, std::fstream::app);
     //out<<"container type: "<<type<<endl;
