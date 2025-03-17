@@ -278,10 +278,9 @@ void print_metrics (string filename, float data, int num) {
     string name = filename+"."+type+".txt";
     
     out.open(name, std::fstream::app);
-    out<<"container type: "<<type<<endl;
-    out << "|";
-    out << data<<"|";
-    if (num == 1) out << endl;
+    //out<<"container type: "<<type<<endl;
+    out <<"|" <<data;
+    if (num == 1) out <<"|"<< endl;
 
     
     
