@@ -158,26 +158,31 @@ int main() {
                 // padalainti faila i dvi kategorijas
                 // israsyti i du atskirus failus
                 // islcearinti stud vectoriu
+                //-----------------------------
+                //ka reiketu matuoti v1.0 versijoje:
+                // 1. duomenų nuskaitymą iš failų į atitinkamą konteinerį
+                // 2. studentų rūšiavimą didėjimo tvarką konteineryje (funkcija sort);
+                // 3. studentų skirstymo  į dvi grupes/kategorijas (naujų konteinerių su skirtingais studentais kūrimas); 
                 system("clear");
                 const vector<int> file_size = {1000, 10000, 100000, 1000000, 10000000};
                 vector<Student> nuskriaustukai, kietiakai;
                 for (int i = 0; i < file_size.size(); i++) {
                     string namefile = "studentai" + std::to_string(file_size[i])+ ".txt";
-                    generate_file(file_size[i]);
-                    /*
+                    //generate_file(file_size[i]);
+                    
                     auto start = std::chrono::high_resolution_clock::now(); // Paleisti
                     import_file(stud,namefile);
                     sort_file(stud, namefile);
                     divide_file(stud,kietiakai,nuskriaustukai);
                     auto end = std::chrono::high_resolution_clock::now(); // Stabdyti
                     std::chrono::duration<double> diff = end-start;
-                    /*---------------------------------
+                    /*
                     cout<<endl<< "Sorting kietiakai:"<<endl;
                     sort_students(kietiakai);
                     cout<< "Sorting nuskriaustukai:"<<endl;
                     sort_students(nuskriaustukai);
-                    /*///---------------------------------
-                    /*
+                    */
+                    
                     auto start1 = std::chrono::high_resolution_clock::now(); // Paleisti
                     write_marks(kietiakai, "studentai"+std::to_string(file_size[i])+"_kietiakai.txt");
                     write_marks(nuskriaustukai, "studentai"+std::to_string(file_size[i])+"_nuskriaustukai.txt");
@@ -189,7 +194,7 @@ int main() {
                     cout <<"=========================================================="<<endl;
                     cout << "| Processed file "<< setw(25)<< left<<namefile<<" Took: "<< std::setprecision(3)<<setw(5) <<left<<(diff.count() + diff1.count()) << " s |"<<endl;
                     cout <<"=========================================================="<<endl<<endl;
-                    */
+                    
                 }   
                 break;
             }

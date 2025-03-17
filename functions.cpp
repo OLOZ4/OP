@@ -204,11 +204,13 @@ void divide_file (vector<Student>& stud,vector<Student>& kietiakai,vector<Studen
         kietiakai.push_back(stud.back());
         stud.pop_back();
     }
+    /*
     while (stud.size() != 0) {
         nuskriaustukai.push_back(stud.back());
         stud.pop_back();
     }
-
+    */
+    nuskriaustukai = stud;
     nuskriaustukai.shrink_to_fit();
     kietiakai.shrink_to_fit();
     auto end = std::chrono::high_resolution_clock::now(); // Stabdyti
