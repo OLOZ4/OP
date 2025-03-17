@@ -1,5 +1,4 @@
 #include "header.h"
-
 bool isValid ( string number ) {
     try {
         int mark = stoi(number);
@@ -145,6 +144,7 @@ void import_file (vector<Student>& stud, string filename) {
         auto end = std::chrono::high_resolution_clock::now(); // Stabdyti
         std::chrono::duration<double> diff = end-start;
         cout << "Importing file " <<filename<<" was successful. Took: "<< diff.count() << " s"<<endl;
+        print_metrics(filename, diff.count(), 0);
         in.close();
         
 }
@@ -192,9 +192,10 @@ void sort_file (vector<Student>& stud, string name) {
     auto end = std::chrono::high_resolution_clock::now(); // Stabdyti
     std::chrono::duration<double> diff = end-start;
     cout << "Sorting file "<<name<<" was successful. Took: "<< diff.count() << " s"<<endl;
+    print_metrics(name, diff.count(), 0);
 }
 // tikrai galima geriau, bet kaip? kazakda reikes pasidometi.
-void divide_file (vector<Student>& stud,vector<Student>& kietiakai,vector<Student>& nuskriaustukai) {
+void divide_file (vector<Student>& stud,vector<Student>& kietiakai,vector<Student>& nuskriaustukai, string filename) {
     string name = "studentai" + std::to_string(stud.size()) + ".txt";
     auto start = std::chrono::high_resolution_clock::now(); // Paleisti
     nuskriaustukai.reserve(stud.size());
@@ -216,6 +217,7 @@ void divide_file (vector<Student>& stud,vector<Student>& kietiakai,vector<Studen
     auto end = std::chrono::high_resolution_clock::now(); // Stabdyti
     std::chrono::duration<double> diff = end-start;
     cout << "Dividing file "<<name<<" was successful. Took: "<< diff.count() << " s"<<endl;
+    print_metrics(filename, diff.count(), 0);
 }
 
 void sort_students (vector<Student>& stud) {
@@ -267,4 +269,20 @@ void sort_students (vector<Student>& stud) {
         }
         
     }
+}
+
+void print_metrics (string filename, float data, int num) {
+    string const type = "vector";
+    int count = 0;
+    std::ofstream out;
+    string name = filename+"."+type+".txt";
+    
+    out.open(name, std::fstream::app);
+    out<<"container type: "<<type<<endl;
+    out << "|";
+    out << data<<"|";
+    if (num == 1) out << endl;
+
+    
+    
 }

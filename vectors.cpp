@@ -173,7 +173,7 @@ int main() {
                     auto start = std::chrono::high_resolution_clock::now(); // Paleisti
                     import_file(stud,namefile);
                     sort_file(stud, namefile);
-                    divide_file(stud,kietiakai,nuskriaustukai);
+                    divide_file(stud, kietiakai, nuskriaustukai, namefile);
                     auto end = std::chrono::high_resolution_clock::now(); // Stabdyti
                     std::chrono::duration<double> diff = end-start;
                     /*
@@ -183,18 +183,16 @@ int main() {
                     sort_students(nuskriaustukai);
                     */
                     
-                    auto start1 = std::chrono::high_resolution_clock::now(); // Paleisti
-                    write_marks(kietiakai, "studentai"+std::to_string(file_size[i])+"_kietiakai.txt");
-                    write_marks(nuskriaustukai, "studentai"+std::to_string(file_size[i])+"_nuskriaustukai.txt");
+                    //write_marks(kietiakai, "studentai"+std::to_string(file_size[i])+"_kietiakai.txt");
+                    //write_marks(nuskriaustukai, "studentai"+std::to_string(file_size[i])+"_nuskriaustukai.txt");
                     stud.clear();
                     nuskriaustukai.clear();
                     kietiakai.clear();
-                    auto end1 = std::chrono::high_resolution_clock::now(); // Stabdyti
-                    std::chrono::duration<double> diff1 = end1-start1;
+                   
                     cout <<"=========================================================="<<endl;
-                    cout << "| Processed file "<< setw(25)<< left<<namefile<<" Took: "<< std::setprecision(3)<<setw(5) <<left<<(diff.count() + diff1.count()) << " s |"<<endl;
+                    cout << "| Processed file "<< setw(25)<< left<<namefile<<" Took: "<< std::setprecision(3)<<setw(5) <<left<<diff.count() << " s |"<<endl;
                     cout <<"=========================================================="<<endl<<endl;
-                    
+                    print_metrics(namefile, diff.count(), 1);
                 }   
                 break;
             }
