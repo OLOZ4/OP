@@ -190,7 +190,7 @@ int main() {
                     kietiakai.clear();
                    
                     cout <<"================================================================="<<endl;
-                    cout << "| Processed file "<< setw(25)<< left<<namefile<<" Took: "<< std::setprecision(3)<<setw(5) <<left<<diff.count() << " s |"<<endl;
+                    cout << "| Processed file "<< setw(35)<< left<<namefile<<" Took: "<< std::setprecision(3)<<setw(5) <<left<<diff.count() << " s |"<<endl;
                     cout <<"================================================================="<<endl<<endl;
                     print_metrics(namefile, diff.count(), 1);
                 }   
