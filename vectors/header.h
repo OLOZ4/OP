@@ -65,3 +65,5 @@ void divide_file (vector<Student>& stud,vector<Student>& kietiakai,vector<Studen
 void sort_students (vector<Student>& stud);
 
 void print_metrics (string filename, float data, int num);
+
+string extractNumbers(const std::string& str);

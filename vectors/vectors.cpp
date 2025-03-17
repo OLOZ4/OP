@@ -167,7 +167,7 @@ int main() {
                 const vector<int> file_size = {1000, 10000, 100000, 1000000, 10000000};
                 vector<Student> nuskriaustukai, kietiakai;
                 for (int i = 0; i < file_size.size(); i++) {
-                    string namefile = "studentai" + std::to_string(file_size[i])+ ".txt";
+                    string namefile = "../studentai/studentai" + std::to_string(file_size[i])+ ".txt";
                     //generate_file(file_size[i]);
                     
                     auto start = std::chrono::high_resolution_clock::now(); // Paleisti

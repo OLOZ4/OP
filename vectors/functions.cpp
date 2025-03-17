@@ -1,4 +1,6 @@
 #include "header.h"
+#include <vector>
+
 bool isValid ( string number ) {
     try {
         int mark = stoi(number);
@@ -28,7 +30,7 @@ int randomNumber (int a, int b) {
 }
 
 void readFile(vector<string>& name) {
-    std::ifstream in("vardai.txt");
+    std::ifstream in("../vardai.txt");
     if (!in.is_open()) {
         cerr << "Failed to open file." << std::endl;
         return;
@@ -94,7 +96,7 @@ void write_marks (vector<Student> stud, string name) {
     auto start = std::chrono::high_resolution_clock::now(); // Paleisti
     std::ofstream out (name);
     out << setw(g) << left<< "Vardas: "<< setw(g) << left<< "Pavardė: "<< setw(g) << left<< "Pažymys(vid.): "<< setw(g) << left<< "Pažymys(med.): "<< endl;
-     out<<"__________________________________________________________________________________"<<endl;
+    out<<"__________________________________________________________________________________"<<endl;
     for (int i = 0; i < stud.size(); i++) {
         out <<setw(g)<< left<< stud[i].name << setw(g)<< left<< stud[i].surname; 
         out << setw(g) <<left<<std::setprecision(3)<< stud[i].result << setw(g)<< left << std::setprecision(3) <<  stud[i].median << endl; // kur mediana vietoj vidurkio imti mediana
@@ -273,15 +275,24 @@ void sort_students (vector<Student>& stud) {
 
 void print_metrics (string filename, float data, int num) {
     string const type = "vector";
-    int count = 0;
     std::ofstream out;
-    string name = filename+"."+type+".txt";
+
+    std::string command = "mkdir -p data";
+    system(command.c_str());
+    string name = "/data"+extractNumbers(filename)+"."+type+".txt";
     
     out.open(name, std::fstream::app);
     //out<<"container type: "<<type<<endl;
     out <<"|" <<data;
     if (num == 1) out <<"|"<< endl;
+}
 
-    
-    
+string extractNumbers(const std::string& str) {
+    std::string result;
+    for (char ch : str) {
+        if (std::isdigit(ch)) {
+            result += ch;
+        }
+    }
+    return result;
 }
