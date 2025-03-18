@@ -215,6 +215,7 @@ void divide_file (deque<Student>& stud,deque<Student>& kietiakai,deque<Student>&
     nuskriaustukai = stud;
     nuskriaustukai.shrink_to_fit();
     kietiakai.shrink_to_fit();
+    stud.shrink_to_fit();
     auto end = std::chrono::high_resolution_clock::now(); // Stabdyti
     std::chrono::duration<double> diff = end-start;
     cout << "Dividing file "<<name<<" was successful. Took: "<< diff.count() << " s"<<endl;
