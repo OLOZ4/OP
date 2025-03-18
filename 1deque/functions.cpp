@@ -201,18 +201,26 @@ void divide_file (deque<Student>& stud,deque<Student>& kietiakai,deque<Student>&
     auto start = std::chrono::high_resolution_clock::now(); // Paleisti
     //nuskriaustukai.reserve(stud.size());
     //kietiakai.reserve(stud.size());
-    
+    //----------------------------------------------
+    for (int i = 0; i < stud.size(); i++) {
+        if (stud[i].result >= 5.00) kietiakai.push_back(stud[i]);
+        else nuskriaustukai.push_back(stud[i]);
+    }
+    //----------------------------------------------
+    /*
     while (stud.back().result >= 5.00) {
         kietiakai.push_back(stud.back());
         stud.pop_back();
     }
+    */
+
     /*
     while (stud.size() != 0) {
         nuskriaustukai.push_back(stud.back());
         stud.pop_back();
     }
     */
-    nuskriaustukai = stud;
+    //nuskriaustukai = stud;
     nuskriaustukai.shrink_to_fit();
     kietiakai.shrink_to_fit();
     stud.shrink_to_fit();

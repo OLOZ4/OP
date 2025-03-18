@@ -207,11 +207,21 @@ void divide_file (list<Student>& stud,list<Student>& kietiakai,list<Student>& nu
     auto start = std::chrono::high_resolution_clock::now(); // Paleisti
     //nuskriaustukai.reserve(stud.size());
     //kietiakai.reserve(stud.size());
+    //--------------------------------------------------------
+    for (auto it = stud.begin(); it != stud.end(); ++it) {
+        if (it->result >= 5.00) kietiakai.push_back(*it);
+        else nuskriaustukai.push_back(*it);
+    }
     
+    //---------------------------------------------------------
+    
+    
+    /*
     while (stud.back().result >= 5.00) {
         kietiakai.push_back(stud.back());
         stud.pop_back();
     }
+    */
     /*
     while (stud.size() != 0) {
         nuskriaustukai.push_back(stud.back());
