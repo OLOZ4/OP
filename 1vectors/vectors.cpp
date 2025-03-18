@@ -166,6 +166,7 @@ int main() {
                 system("clear");
                 const vector<int> file_size = {1000, 10000, 100000, 1000000, 10000000};
                 vector<Student> nuskriaustukai, kietiakai;
+                for (int j = 0; j < 5; j++) {
                 for (int i = 0; i < file_size.size(); i++) {
                     string namefile = "../studentai/studentai" + std::to_string(file_size[i])+ ".txt";
                     //generate_file(file_size[i]);
@@ -193,6 +194,7 @@ int main() {
                     cout << "| Processed file "<< setw(25)<< left<<namefile<<" Took: "<< std::setprecision(3)<<setw(5) <<left<<diff.count() << " s |"<<endl;
                     cout <<"=========================================================="<<endl<<endl;
                     print_metrics(namefile, diff.count(), 1);
+                }
                 }   
                 break;
             }
