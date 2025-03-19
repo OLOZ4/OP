@@ -157,6 +157,43 @@
 |5|367.112|218.5|1334.59|1920.86|
 |Vid.|-|-|-|1791.95|
 
+## Pirmosios strategijos išvados
+
+**1000**
+| Konteinerio tipas | Vid. laikas sekundėmis |
+|-------------------|------------------------|
+|Vektorius|****|
+|Listas|****|
+|Dekas|****|
+
+**10000**
+| Konteinerio tipas | Vid. laikas sekundėmis |
+|-------------------|------------------------|
+|Vektorius|****|
+|Listas|****|
+|Dekas|****|
+
+**100000**
+| Konteinerio tipas | Vid. laikas sekundėmis |
+|-------------------|------------------------|
+|Vektorius|****|
+|Listas|****|
+|Dekas|****|
+
+**1000000**
+| Konteinerio tipas | Vid. laikas sekundėmis |
+|-------------------|------------------------|
+|Vektorius|****|
+|Listas|****|
+|Dekas|****|
+
+**10000000**
+| Konteinerio tipas | Vid. laikas sekundėmis |
+|-------------------|------------------------|
+|Vektorius|****|
+|Listas|****|
+|Dekas|****|
+
 ## Antra strategija
 *Bendro studentų konteinerio (vector, list ir deque) skaidymas (rūšiavimas) panaudojant tik vieną naują konteinerį: "vargšiukai". Tokiu būdu, jei studentas yra vargšiukas, jį turime įkelti į naująjį "vargšiukų" konteinerį ir ištrinti iš bendro studentai konteinerio. Po šio žingsnio studentai konteineryje liks vien tik kietiakai. Atminties atveju tai efektyviau, tačiau dažni trynimai gali būti "skausmingi", ypač tam tikro tipo konteineriams.*
 
@@ -315,3 +352,40 @@
 |4|216.16|229.551|187.215|633.343|
 |5|177.097|219.953|178.219|575.358|
 |Vid.|-|-|-|1270.3142|
+
+## Antrosios strategijos išvados
+
+**1000**
+| Konteinerio tipas | Vid. laikas sekundėmis |
+|-------------------|------------------------|
+|Vektorius|****|
+|Listas|****|
+|Dekas|****|
+
+**10000**
+| Konteinerio tipas | Vid. laikas sekundėmis |
+|-------------------|------------------------|
+|Vektorius|****|
+|Listas|****|
+|Dekas|****|
+
+**100000**
+| Konteinerio tipas | Vid. laikas sekundėmis |
+|-------------------|------------------------|
+|Vektorius|****|
+|Listas|****|
+|Dekas|****|
+
+**1000000**
+| Konteinerio tipas | Vid. laikas sekundėmis |
+|-------------------|------------------------|
+|Vektorius|****|
+|Listas|****|
+|Dekas|****|
+
+**10000000**
+| Konteinerio tipas | Vid. laikas sekundėmis |
+|-------------------|------------------------|
+|Vektorius|****|
+|Listas|****|
+|Dekas|****|
