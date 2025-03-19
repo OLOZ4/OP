@@ -162,37 +162,37 @@
 **1000**
 | Konteinerio tipas | Vid. laikas sekundėmis |
 |-------------------|------------------------|
-|Vektorius|****|
-|Listas|****|
-|Dekas|****|
+|Vektorius|**0.06018572**|
+|Listas|**0.038556**|
+|Dekas|**0.05684944**|
 
 **10000**
 | Konteinerio tipas | Vid. laikas sekundėmis |
 |-------------------|------------------------|
-|Vektorius|****|
-|Listas|****|
-|Dekas|****|
+|Vektorius|**0.10010296**|
+|Listas|**0.1621798**|
+|Dekas|**0.3532868**|
 
 **100000**
 | Konteinerio tipas | Vid. laikas sekundėmis |
 |-------------------|------------------------|
-|Vektorius|****|
-|Listas|****|
-|Dekas|****|
+|Vektorius|**0.515036**|
+|Listas|**1.01146**|
+|Dekas|**2.421398**|
 
 **1000000**
 | Konteinerio tipas | Vid. laikas sekundėmis |
 |-------------------|------------------------|
-|Vektorius|****|
-|Listas|****|
-|Dekas|****|
+|Vektorius|**5.244066**|
+|Listas|**6.887438**|
+|Dekas|**22.9448**|
 
 **10000000**
 | Konteinerio tipas | Vid. laikas sekundėmis |
 |-------------------|------------------------|
-|Vektorius|****|
-|Listas|****|
-|Dekas|****|
+|Vektorius|**54.68584**|
+|Listas|**92.91066**|
+|Dekas|**1791.95**|
 
 ## Antra strategija
 *Bendro studentų konteinerio (vector, list ir deque) skaidymas (rūšiavimas) panaudojant tik vieną naują konteinerį: "vargšiukai". Tokiu būdu, jei studentas yra vargšiukas, jį turime įkelti į naująjį "vargšiukų" konteinerį ir ištrinti iš bendro studentai konteinerio. Po šio žingsnio studentai konteineryje liks vien tik kietiakai. Atminties atveju tai efektyviau, tačiau dažni trynimai gali būti "skausmingi", ypač tam tikro tipo konteineriams.*
@@ -358,34 +358,34 @@
 **1000**
 | Konteinerio tipas | Vid. laikas sekundėmis |
 |-------------------|------------------------|
-|Vektorius|****|
-|Listas|****|
-|Dekas|****|
+|Vektorius|**0.05090222**|
+|Listas|**0.1495786**|
+|Dekas|**0.04837712**|
 
 **10000**
 | Konteinerio tipas | Vid. laikas sekundėmis |
 |-------------------|------------------------|
-|Vektorius|****|
-|Listas|****|
-|Dekas|****|
+|Vektorius|**0.07974518**|
+|Listas|**0.1139308**|
+|Dekas|**0.2323468**|
 
 **100000**
 | Konteinerio tipas | Vid. laikas sekundėmis |
 |-------------------|------------------------|
-|Vektorius|****|
-|Listas|****|
-|Dekas|****|
+|Vektorius|**0.4810722**|
+|Listas|**0.5868968**|
+|Dekas|**1.3812**|
 
 **1000000**
 | Konteinerio tipas | Vid. laikas sekundėmis |
 |-------------------|------------------------|
-|Vektorius|****|
-|Listas|****|
-|Dekas|****|
+|Vektorius|**4.902806**|
+|Listas|**6.103116**|
+|Dekas|**10.78286**|
 
 **10000000**
 | Konteinerio tipas | Vid. laikas sekundėmis |
 |-------------------|------------------------|
-|Vektorius|****|
-|Listas|****|
-|Dekas|****|
+|Vektorius|**57.99392**|
+|Listas|**68.92654**|
+|Dekas|**1270.3142**|
