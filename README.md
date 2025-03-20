@@ -1,3 +1,16 @@
+## Paleidimo instrukcijos
+
++ Klonuojame arba parsisiunčiame šitą repozitoriją
++ Surandame failą pavadinimu "Makefile"
++ Trečioje eilutėje yra nurodoma, kokia realizacija šio projekto bus paleista, standartiškai bus paleista ```3vectors``` realizacija. Tai galima pakeisti į kitą konteinerį ar strategiją. Pvz. jūs norite paleisti antros strategijos realiaciją dekais, tada trčia makefile eilutė turėtų atrodyti šitaip: ``` SRC_PATH = 2deque/``` . **Svarbu gale nepamiršti  simbolio "```/```"**
++ Išsaugome failą
++ Šio projekto direktorijoje atsidarome terminalą ir rašome ```make```
++ Turi atsirasti du aplankai: ```obj``` ir ```programa```
++ Nueiname į aplanką ```programa```
++ Paleidžiame esantį failą komanda ```./main```
++ Baigus darbą ištriname visus komandos ```make``` sugeneruotus failus naudodami komandą ```make clean```
++ Kilus klausimams ar nesusipratimams, prašome sukurti naują issue github sistemoje
+
 ## Pirma strategija 
 *Bendro studentai konteinerio (vector, list ir deque tipų) skaidymas (rūšiavimas) į du naujus to paties tipo konteinerius: "vargšiukų" ir "kietiakų". Tokiu būdu tas pats studentas yra dvejuose konteineriuose: bendrame studentai ir viename iš suskaidytų (vargšiukai arba kietiakai). Nesunku pastebėti, kad tokia strategija yra neefektyvi užimamos atminties atžvilgiu (įsitikinkite tuo!), tačiau šiame žingsnyje svarbiausia yra patyrinėti, kaip programos veikimo sparta priklauso nuo konteinerio tipo?*
 
@@ -467,3 +480,11 @@
 |Vektorius|**54.68584**|**57.99392**|**54.86644**|
 |Listas|**92.91066**|**68.92654**|**54.11488**|
 |Dekas|**1791.95**|**1270.3142**|**-**|
+
+## Kompiuterio komponentai
+
++ OS: GNU/Linux
++ CPU: Intel i7-7500U
++ GPU: Intel HD Graphics 620
++ RAM: 8GB
+
