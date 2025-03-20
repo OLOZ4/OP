@@ -107,7 +107,7 @@ void write_marks (vector<Student> stud, string name) {
 }
 vector<string> listTxtFiles() {
   std::vector<std::string> txtFiles;
-  for (const auto& entry : std::filesystem::directory_iterator(".")) {
+  for (const auto& entry : std::filesystem::directory_iterator("../studentai/")) {
     if (entry.is_regular_file() && entry.path().extension() == ".txt") {
       txtFiles.push_back(entry.path().filename().string());
     }
@@ -145,7 +145,7 @@ void import_file (vector<Student>& stud, string filename) {
         auto end = std::chrono::high_resolution_clock::now(); // Stabdyti
         std::chrono::duration<double> diff = end-start;
         cout << "Importing file " <<filename<<" was successful. Took: "<< diff.count() << " s"<<endl;
-        print_metrics(filename, diff.count(), 0);
+        //print_metrics(filename, diff.count(), 0);
         in.close();
         
 }
@@ -193,8 +193,9 @@ void sort_file (vector<Student>& stud, string name) {
     auto end = std::chrono::high_resolution_clock::now(); // Stabdyti
     std::chrono::duration<double> diff = end-start;
     cout << "Sorting file "<<name<<" was successful. Took: "<< diff.count() << " s"<<endl;
-    print_metrics(name, diff.count(), 0);
+    //print_metrics(name, diff.count(), 0);
 }
+/*
 // tikrai galima geriau, bet kaip? kazakda reikes pasidometi.
 void divide_file (vector<Student>& stud,vector<Student>& nuskriaustukai, string filename) {
     string name = "studentai" + std::to_string(stud.size()) + ".txt";
@@ -205,18 +206,39 @@ void divide_file (vector<Student>& stud,vector<Student>& nuskriaustukai, string 
         nuskriaustukai.push_back(stud.back());
         stud.pop_back();
     }
-    /*
-    while (stud.size() != 0) {
-        nuskriaustukai.push_back(stud.back());
-        stud.pop_back();
-    }
-    */
+    
+    //while (stud.size() != 0) {
+    //    nuskriaustukai.push_back(stud.back());
+    //   stud.pop_back();
+    //}
+    
     nuskriaustukai.shrink_to_fit();
     stud.shrink_to_fit();
     auto end = std::chrono::high_resolution_clock::now(); // Stabdyti
     std::chrono::duration<double> diff = end-start;
     cout << "Dividing file "<<filename<<" was successful. Took: "<< diff.count() << " s"<<endl;
     print_metrics(filename, diff.count(), 0);
+}
+*/
+void divide_file(vector<Student>& stud, vector<Student>& nuskriaustukai, string filename) {
+    auto start = std::chrono::high_resolution_clock::now();
+    
+    // Partition the students based on the result
+    auto partition_point = std::stable_partition(stud.begin(), stud.end(), [](const Student& s) { return s.result >= 5.0; });
+    //print_marks(stud);
+    
+    // Move the failing students to nuskriaustukai
+    nuskriaustukai = vector<Student>(std::make_move_iterator(partition_point), std::make_move_iterator(stud.end()));
+    stud.erase(partition_point, stud.end());
+    
+    // Shrink to fit
+    nuskriaustukai.shrink_to_fit();
+    stud.shrink_to_fit();
+    
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> diff = end - start;
+    std::cout << "Dividing file " << filename << " was successful. Took: " << diff.count() << " s" << std::endl;
+    //print_metrics(filename, diff.count(), 0);
 }
 
 void sort_students (vector<Student>& stud) {

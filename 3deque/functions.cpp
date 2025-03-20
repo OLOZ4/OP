@@ -145,7 +145,7 @@ void import_file (deque<Student>& stud, string filename) {
         auto end = std::chrono::high_resolution_clock::now(); // Stabdyti
         std::chrono::duration<double> diff = end-start;
         cout << "Importing file " <<filename<<" was successful. Took: "<< diff.count() << " s"<<endl;
-        print_metrics(filename, diff.count(), 0);
+        //print_metrics(filename, diff.count(), 0);
         in.close();
         
 }
@@ -193,8 +193,9 @@ void sort_file (deque<Student>& stud, string name) {
     auto end = std::chrono::high_resolution_clock::now(); // Stabdyti
     std::chrono::duration<double> diff = end-start;
     cout << "Sorting file "<<name<<" was successful. Took: "<< diff.count() << " s"<<endl;
-    print_metrics(name, diff.count(), 0);
+    //print_metrics(name, diff.count(), 0);
 }
+/*
 // tikrai galima geriau, bet kaip? kazakda reikes pasidometi.
 void divide_file (deque<Student>& stud,deque<Student>& nuskriaustukai, string filename) {
     string name = "studentai" + std::to_string(stud.size()) + ".txt";
@@ -206,12 +207,12 @@ void divide_file (deque<Student>& stud,deque<Student>& nuskriaustukai, string fi
         nuskriaustukai.push_back(stud.back());
         stud.pop_back();
     }
-    /*
+    
     while (stud.size() != 0) {
         nuskriaustukai.push_back(stud.back());
         stud.pop_back();
     }
-    */
+    
     //nuskriaustukai = stud;
     nuskriaustukai.shrink_to_fit();
     //kietiakai.shrink_to_fit();
@@ -220,6 +221,28 @@ void divide_file (deque<Student>& stud,deque<Student>& nuskriaustukai, string fi
     std::chrono::duration<double> diff = end-start;
     cout << "Dividing file "<<name<<" was successful. Took: "<< diff.count() << " s"<<endl;
     print_metrics(filename, diff.count(), 0);
+}
+*/
+
+void divide_file(deque<Student>& stud, deque<Student>& nuskriaustukai, string filename) {
+    auto start = std::chrono::high_resolution_clock::now();
+    
+    // Partition the students based on the result
+    auto partition_point = std::stable_partition(stud.begin(), stud.end(), [](const Student& s) { return s.result >= 5.0; });
+    //print_marks(stud);
+    
+    // Move the failing students to nuskriaustukai
+    nuskriaustukai = deque<Student>(std::make_move_iterator(partition_point), std::make_move_iterator(stud.end()));
+    stud.erase(partition_point, stud.end());
+    
+    // Shrink to fit
+    nuskriaustukai.shrink_to_fit();
+    stud.shrink_to_fit();
+    
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> diff = end - start;
+    std::cout << "Dividing file " << filename << " was successful. Took: " << diff.count() << " s" << std::endl;
+    //print_metrics(filename, diff.count(), 0);
 }
 
 void sort_students (deque<Student>& stud) {

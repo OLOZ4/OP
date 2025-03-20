@@ -63,7 +63,7 @@ void generate_file (int number);
 
 void sort_file (list<Student>& stud, string name);
 
-void divide_file (list<Student>& stud,list<Student>& nuskriaustukai, string filename);
+void divide_file (list<Student>& stud, list<Student>& nuskriaustukai, string filename);
 
 void sort_students (list<Student>& stud);
 
