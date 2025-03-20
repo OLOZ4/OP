@@ -2,7 +2,7 @@ CXX = g++
 CXXFLAGS = -Wall -Wextra -std=c++17
 SRC_PATH = 3vectors/
 OBJ_DIR = obj
-BIN_DIR = program
+BIN_DIR = programa
 TARGET = $(BIN_DIR)/main
 
 SRCS = $(wildcard $(SRC_PATH)/*.cpp)
