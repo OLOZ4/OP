@@ -389,3 +389,44 @@
 |Vektorius|**57.99392**|
 |Listas|**68.92654**|
 |Dekas|**1270.3142**|
+
+
+## Trečia strategija
+*Bendro studentų konteinerio (vector, list ir deque) skaidymas (rūšiavimas) panaudojant greičiausiai veikianti 1 arba 2 strategiją  įtraukiant į ją "efektyvius" darbo su konteineriais metodus*
+
+## Trečiosios strategijos išvados
+
+**1000**
+| Konteinerio tipas | Vid. laikas sekundėmis |
+|-------------------|------------------------|
+|Vektorius|**0.0321626**|
+|Listas|**0.02778266**|
+|Dekas|**0.03375468**|
+
+**10000**
+| Konteinerio tipas | Vid. laikas sekundėmis |
+|-------------------|------------------------|
+|Vektorius|**0.10179046**|
+|Listas|**0.08829786**|
+|Dekas|**0.148642**|
+
+**100000**
+| Konteinerio tipas | Vid. laikas sekundėmis |
+|-------------------|------------------------|
+|Vektorius|**0.5735542**|
+|Listas|**0.543196**|
+|Dekas|**1.051894**|
+
+**1000000**
+| Konteinerio tipas | Vid. laikas sekundėmis |
+|-------------------|------------------------|
+|Vektorius|**5.157186**|
+|Listas|**4.589734**|
+|Dekas|**10.72832**|
+
+**10000000**
+| Konteinerio tipas | Vid. laikas sekundėmis |
+|-------------------|------------------------|
+|Vektorius|**54.86644**|
+|Listas|**54.11488**|
+|Dekas|**-**|
