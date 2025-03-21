@@ -1,4 +1,5 @@
 #include "header.h"
+#include <string>
 
 bool isValid ( string number ) {
     try {
@@ -56,7 +57,7 @@ int lineCount (string filename) {
 
 }
 
-void count_marks (deque<Student>& stud) {
+void count_marks (vector<Student>& stud) {
     for (int i = 0; i < stud.size(); i++) {
         double sum = 0;
         for (int j = 0; j < stud[i].mark.size(); j++) {
@@ -75,7 +76,7 @@ void count_marks (deque<Student>& stud) {
     }
 }
 
-void print_marks (deque<Student> stud) {
+void print_marks (vector<Student> stud) {
     int g = 15;
     cout << endl << setw(g) << left<< "Vardas: "<< setw(g) << left<< "Pavardė: "<< setw(g) << left<< "Pažymys(vid.): "<< setw(g) << left<< "Pažymys(med.): "<< endl;
      cout<<"__________________________________________________________________________________"<<endl;
@@ -89,7 +90,7 @@ void print_marks (deque<Student> stud) {
     //-------------------------------------------------------------
 }
 
-void write_marks (deque<Student> stud, string name) {
+void write_marks (vector<Student> stud, string name) {
 
     int g = 15;
     auto start = std::chrono::high_resolution_clock::now(); // Paleisti
@@ -107,7 +108,7 @@ void write_marks (deque<Student> stud, string name) {
 }
 vector<string> listTxtFiles() {
   std::vector<std::string> txtFiles;
-  for (const auto& entry : std::filesystem::directory_iterator(".")) {
+  for (const auto& entry : std::filesystem::directory_iterator("../studentai/")) {
     if (entry.is_regular_file() && entry.path().extension() == ".txt") {
       txtFiles.push_back(entry.path().filename().string());
     }
@@ -115,14 +116,14 @@ vector<string> listTxtFiles() {
   return txtFiles;
 }
 
-void import_file (deque<Student>& stud, string filename) {
+void import_file (vector<Student>& stud, string filename) {
 
     string temp;
     ifstream in(filename);
     auto start = std::chrono::high_resolution_clock::now(); // Paleisti
     int lineNum = lineCount(filename);
     getline(in, temp);
-    //stud.reserve(lineNum);                    
+    stud.reserve(lineNum);                    
     string word;
     Student temp_student{};
     while (getline(in, temp)) {   
@@ -145,7 +146,7 @@ void import_file (deque<Student>& stud, string filename) {
         auto end = std::chrono::high_resolution_clock::now(); // Stabdyti
         std::chrono::duration<double> diff = end-start;
         cout << "Importing file " <<filename<<" was successful. Took: "<< diff.count() << " s"<<endl;
-        print_metrics(filename, diff.count(), 0);
+        //print_metrics(filename, diff.count(), 0);
         in.close();
         
 }
@@ -187,58 +188,136 @@ void generate_file (int number) {
     outt.close();
 }
 
-void sort_file (deque<Student>& stud, string name) {
+void sort_file (vector<Student>& stud, string name) {
     auto start = std::chrono::high_resolution_clock::now(); // Paleisti
-    std::sort(stud.begin(), stud.end(), [](const Student& a, const Student& b) {return a.result < b.result;});    
+    std::sort(stud.begin(), stud.end(), [](const Student& a, const Student& b) {return a.result > b.result;});    
     auto end = std::chrono::high_resolution_clock::now(); // Stabdyti
     std::chrono::duration<double> diff = end-start;
     cout << "Sorting file "<<name<<" was successful. Took: "<< diff.count() << " s"<<endl;
-    print_metrics(name, diff.count(), 0);
+    //print_metrics(name, diff.count(), 0);
 }
+/*
 // tikrai galima geriau, bet kaip? kazakda reikes pasidometi.
-void divide_file (deque<Student>& stud,deque<Student>& kietiakai,deque<Student>& nuskriaustukai, string filename) {
+void divide_file (vector<Student>& stud,vector<Student>& nuskriaustukai, string filename) {
     string name = "studentai" + std::to_string(stud.size()) + ".txt";
     auto start = std::chrono::high_resolution_clock::now(); // Paleisti
-    //nuskriaustukai.reserve(stud.size());
-    //kietiakai.reserve(stud.size());
-    //----------------------------------------------
+    nuskriaustukai.reserve(stud.size());
     
-    /*
-    for (int i = 0; i < stud.size(); i++) {
-        if (stud[i].result >= 5.00) kietiakai.push_back(stud[i]);
-        else nuskriaustukai.push_back(stud[i]);
+    while (stud.back().result < 5.00) {
+        nuskriaustukai.push_back(stud.back());
+        stud.pop_back();
     }
-    */
+    
+    //while (stud.size() != 0) {
+    //    nuskriaustukai.push_back(stud.back());
+    //   stud.pop_back();
+    //}
+    
+    nuskriaustukai.shrink_to_fit();
+    stud.shrink_to_fit();
+    auto end = std::chrono::high_resolution_clock::now(); // Stabdyti
+    std::chrono::duration<double> diff = end-start;
+    cout << "Dividing file "<<filename<<" was successful. Took: "<< diff.count() << " s"<<endl;
+    print_metrics(filename, diff.count(), 0);
+}
+*/
 
+void divide_file1 (vector<Student>& stud,vector<Student>& kietiakai,vector<Student>& nuskriaustukai, string filename) {
+    string name = "studentai" + std::to_string(stud.size()) + ".txt";
+    auto start = std::chrono::high_resolution_clock::now(); // Paleisti
+    nuskriaustukai.reserve(stud.size());
+    kietiakai.reserve(stud.size());
+    
     for (auto &a: stud) {
         if (a.result >= 5.00) kietiakai.push_back(a);
         else nuskriaustukai.push_back(a);
     }
-    //----------------------------------------------
-    /*
-    while (stud.back().result >= 5.00) {
-        kietiakai.push_back(stud.back());
-        stud.pop_back();
-    }
-    */
 
-    /*
-    while (stud.size() != 0) {
-        nuskriaustukai.push_back(stud.back());
-        stud.pop_back();
-    }
-    */
-    //nuskriaustukai = stud;
     nuskriaustukai.shrink_to_fit();
     kietiakai.shrink_to_fit();
-    stud.shrink_to_fit();
     auto end = std::chrono::high_resolution_clock::now(); // Stabdyti
     std::chrono::duration<double> diff = end-start;
     cout << "Dividing file "<<name<<" was successful. Took: "<< diff.count() << " s"<<endl;
-    print_metrics(filename, diff.count(), 0);
+    //print_metrics(filename, diff.count(), 0, 0);
 }
 
-void sort_students (deque<Student>& stud) {
+void divide_file2 (vector<Student>& stud,vector<Student>& nuskriaustukai, string filename) {
+    string name = "studentai" + std::to_string(stud.size()) + ".txt";
+    auto start = std::chrono::high_resolution_clock::now(); // Paleisti
+    nuskriaustukai.reserve(stud.size());
+    
+    while (stud.back().result < 5.00) {
+        nuskriaustukai.push_back(stud.back());
+        stud.pop_back();
+    }
+
+    nuskriaustukai.shrink_to_fit();
+    stud.shrink_to_fit();
+    auto end = std::chrono::high_resolution_clock::now(); // Stabdyti
+    std::chrono::duration<double> diff = end-start;
+    cout << "Dividing file "<<filename<<" was successful. Took: "<< diff.count() << " s"<<endl;
+    //print_metrics(filename, diff.count(), 0, 0);
+}
+
+void divide_file3(vector<Student>& stud, vector<Student>& nuskriaustukai, string filename) {
+    auto start = std::chrono::high_resolution_clock::now();
+    
+    // Partition the students based on the result
+    auto partition_point = std::stable_partition(stud.begin(), stud.end(), [](const Student& s) { return s.result >= 5.0; });
+    //print_marks(stud);
+    
+    // Move the failing students to nuskriaustukai
+    nuskriaustukai = vector<Student>(std::make_move_iterator(partition_point), std::make_move_iterator(stud.end()));
+    stud.erase(partition_point, stud.end());
+    
+    // Shrink to fit
+    nuskriaustukai.shrink_to_fit();
+    stud.shrink_to_fit();
+    
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> diff = end - start;
+    std::cout << "Dividing file " << filename << " was successful. Took: " << diff.count() << " s" << std::endl;
+    //print_metrics(filename, diff.count(), 0);
+}
+
+void pagrindinis_divide (vector<Student> &stud, vector<Student> &kietiakai, vector<Student> &nuskriaustukai, int num) {
+    const vector<int> file_size = {1000, 10000, 100000, 1000000, 10000000};
+
+    for (int i = 0; i < file_size.size(); i++) {
+        string filename = "../studentai/studentai" + std::to_string(file_size[i])+ ".txt";
+        //generate_file(file_size[i]);
+        
+        auto start = std::chrono::high_resolution_clock::now(); // Paleisti
+        import_file(stud,filename);
+        sort_file(stud, filename);
+        if (num == 1) divide_file1(stud, kietiakai, nuskriaustukai, filename);
+        if (num == 2) divide_file2(stud, nuskriaustukai, filename);
+        if (num == 3) divide_file3(stud, nuskriaustukai, filename);
+        
+        
+        auto end = std::chrono::high_resolution_clock::now(); // Stabdyti
+        std::chrono::duration<double> diff = end-start;
+        /*
+        cout<<endl<< "Sorting kietiakai:"<<endl;
+        sort_students(kietiakai);
+        cout<< "Sorting nuskriaustukai:"<<endl;
+        sort_students(nuskriaustukai);
+        */
+        
+        //if (num == 1) write_marks(kietiakai, "studentai"+std::to_string(file_size[i])+"_kietiakai.txt");
+        //else write_marks(stud, "studentai"+std::to_string(file_size[i])+"_kietiakai.txt");
+        //write_marks(nuskriaustukai, "studentai"+std::to_string(file_size[i])+"_nuskriaustukai.txt");
+        stud.clear();
+        nuskriaustukai.clear();
+        
+        cout <<"==================================================================="<<endl;
+        cout << "| Processed file "<< setw(30)<< left<<filename<<" Took: "<< std::setprecision(3)<<setw(5) <<left<<diff.count() << " s |"<<endl;
+        cout <<"==================================================================="<<endl<<endl;
+        print_metrics(filename, diff.count(), 1, num);
+    }
+}
+
+void sort_students (vector<Student>& stud) {
     cout <<"There are: "<<stud.size()<<" Students"<<endl;
     cout << R"(Sort by:
 1) student name
@@ -289,13 +368,13 @@ void sort_students (deque<Student>& stud) {
     }
 }
 
-void print_metrics (string filename, float data, int num) {
-    string const type = "deque";
+void print_metrics (string filename, float data, int num, int strategija) {
+    string const type = "vector";
     std::ofstream out;
-
+    
     std::string command = "mkdir -p data";
     system(command.c_str());
-    string name = "data/"+extractNumbers(filename)+"."+type+".txt";
+    string name = "data/"+std::to_string(strategija)+"."+extractNumbers(filename)+"."+type+".txt";
     
     out.open(name, std::fstream::app);
     //out<<"container type: "<<type<<endl;

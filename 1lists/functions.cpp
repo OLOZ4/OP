@@ -208,11 +208,17 @@ void divide_file (list<Student>& stud,list<Student>& kietiakai,list<Student>& nu
     //nuskriaustukai.reserve(stud.size());
     //kietiakai.reserve(stud.size());
     //--------------------------------------------------------
+    /*
     for (auto it = stud.begin(); it != stud.end(); ++it) {
         if (it->result >= 5.00) kietiakai.push_back(*it);
         else nuskriaustukai.push_back(*it);
     }
-    
+    */
+
+    for (auto &a: stud) {
+        if (a.result >= 5.00) kietiakai.push_back(a);
+        else nuskriaustukai.push_back(a);
+    }
     //---------------------------------------------------------
     
     
